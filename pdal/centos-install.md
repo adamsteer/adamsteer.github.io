@@ -1,5 +1,5 @@
 
-
+```
 #!/bin/bash
 #Build the PCVM
 
@@ -53,6 +53,7 @@ yum install numpy
 
 #laz-perf
 cd /local/build
+
 git clone https://github.com/verma/laz-perf.git laz-perf
 cd laz-perf
 cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr . && make && make install
@@ -149,5 +150,5 @@ cd ../
 
 
 #finally the greyhound pointcloud server (used for querying the entwine index)
-
-
+soon...
+```
