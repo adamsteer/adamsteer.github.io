@@ -1,64 +1,67 @@
+# A work in progress on installing the PDAL stack on Centos 7
+http://pdal.io
+http://entwine.io
+
+### Note - trying to run the code here as a shell script will break right now.
+
+To do:
+* turn ccmake builds into cmake one-liners
+
+Caveats/disclaimer: This document is provided for advice only, and comes with no guarantee of success. Building things from source can have unintended impacts on other aspects of your machine. I've assumed here that the build environment starts clean and will be deployed only for PDAL operations.
 
 ```
 #!/bin/bash
-#Build the PCVM
-
-
-##note - this script is not ready for launch yet, trying to run it will break.
-##also some tidy ups to come.
-
-
-
-
-### to do - turn ccmake builds into one-liners 
-### 
-
-
-
-
+#Documentation on buuilding the PDAL stack on Centos 7
 #taken heavily from here:
 # https://github.com/PDAL/PDAL/tree/master/scripts/linux-install-scripts
+# Also check the docker install scripts in the PDAL source if things seem
+# to be missing.
 
 
-yum install bzip2 gcc-c++ curl-devel lzma xz-devel lzip libarchive-devel expat-devel jsoncpp jsoncpp-devel ncurses-devel
+#note - here we assume that the epel repository is enabled on your machine:
+# https://fedoraproject.org/wiki/EPEL
 
+#yum yum - get the basic Centos stuff done
+yum install curl-devel gcc-c++ 
 
-#more yum installs
-
-
-yum install CUnit-devel
-
-
+#cmake3 is required for PDAL and entwine
 yum install cmake3 cmake-gui
 
+#many compression libraries
+yum install bzip2 bzip2-devel lzip lzma xz-devel libarchive-devel
 
-yum install bzip2-devel   libxml2-devel  
+#I need to google expat sometime. Note than jsoncpp from source is built later, but
+# does not over-write the system library.
+yum install expat-devel jsoncpp jsoncpp-devel ncurses-devel
 
+#more yum installs
+yum install CUnit-devel libxml2-devel  
 
+#geospatial stuff
 yum install proj proj-devel geos geos-devel libtiff libtiff-devel gdal gdal-devel libgeotiff libgeotiff-devel
 
-
+# system boost version is OK 
 yum install boost boost-devel
 
-
+#using this because I install the postgres-pointcloud extension
+# nb - for my setup postgres is installed by DevOps. Uncomment below if that doesn't happen for you
+# yum install postgresql95
 yum install postgresql95-devel
 
+#using these because I install the icebridge extension
+yum install hdf5-devel netcdf4-devel
 
- yum install  hdf5-devel
-yum install netcdf4-devel
+#And I want the python bindings...
 yum install numpy
 
-
-
+#building everything in a place called /local, change to suit.
 
 #laz-perf
 cd /local/build
-
 git clone https://github.com/verma/laz-perf.git laz-perf
 cd laz-perf
 cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr . && make && make install
 cd ../
-
 
 #laszip
 git clone https://github.com/LASzip/LASzip.git laszip
@@ -67,16 +70,14 @@ git checkout 6de83bc3f4abf6ca30fd07013ba76b06af0d2098
 cmake . -DCMAKE_INSTALL_PREFIX=/usr && make && make install
 cd -
 
-
-
-
+#NB - the commit checked out above is taken from entwine docs and seems to work.
+# checking out master did not at the time I build it last (early Nov 2016)
 #git clone https://github.com/LASzip/LASzip.git laszip
 #cd laszip/
 #cmake . -DCMAKE_INSTALL_PREFIX=/usr
 #make
 #make install
 #cd ../
-
 
 #hexer
 git clone https://github.com/hobu/hexer.git
@@ -85,23 +86,21 @@ cmake . -DCMAKE_INSTALL_PREFIX=/usr -DWITH_GDAL=ON
 make
 make install
 
-
-#p2g
+#p2g - probably superceded by writers.gdal
 git clone https://github.com/CRREL/points2grid.git
 cd points2grid/
-
-
 cmake . -DCMAKE_INSTALL_PREFIX=/usr
-
+make
+make install
+cd ../
 
 #libGHT (for postgres-pointcloud)
 git clone https://github.com/pramsey/libght.git
 cd libght
 cmake . -DCMAKE_INSTALL_PREFIX=/usr
-Make
+make
 make install
 cd ../
-
 
 #pgpointcloud
 git clone https://github.com/pramsey/pointcloud.git
@@ -122,22 +121,15 @@ ccmake3 ../PDAL
 make
 make install
 
-
 # need to know where to look for PDAL...
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib"
-
 
 #update jsoncpp from source:
 Git clone https://github.com/open-source-parsers/jsoncpp.git
 mkdir jsoncpp-build && cd jsoncpp-build
 cmake3 -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo ../jsoncpp
 make && make install
-
-
 #installs into /usr/lib - note this for entwine build
-
-
-
 
 #then entwine
 git clone https://github.com/connormanning/entwine.git
@@ -147,7 +139,6 @@ cmake3 -G "Unix Makefiles"     -DCMAKE_INSTALL_PREFIX=/usr     -DCMAKE_BUILD_TYP
 ccmake3 ../entwine
 make && make install
 cd ../
-
 
 #finally the greyhound pointcloud server (used for querying the entwine index)
 soon...
