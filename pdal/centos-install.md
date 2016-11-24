@@ -1,16 +1,21 @@
-# A work in progress on installing the PDAL stack on Centos 7
-http://pdal.io
-http://entwine.io
+ 
+  <div id="readme" class="readme blob instapaper_body">
+    <article class="markdown-body entry-content" itemprop="text"><h1><a id="user-content-a-work-in-progress-on-installing-the-pdal-stack-on-centos-7" class="anchor" href="#a-work-in-progress-on-installing-the-pdal-stack-on-centos-7" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A work in progress on installing the PDAL stack on Centos 7</h1>
 
-### Note - trying to run the code here as a shell script will break right now.
+<p><a href="http://pdal.io">http://pdal.io</a>
+<a href="http://entwine.io">http://entwine.io</a></p>
 
-To do:
-* turn ccmake builds into cmake one-liners
+<h3><a id="user-content-note---trying-to-run-the-code-here-as-a-shell-script-will-break-right-now" class="anchor" href="#note---trying-to-run-the-code-here-as-a-shell-script-will-break-right-now" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Note - trying to run the code here as a shell script will break right now.</h3>
 
-Caveats/disclaimer: This document is provided for advice only, and comes with no guarantee of success. Building things from source can have unintended impacts on other aspects of your machine. I've assumed here that the build environment starts clean and will be deployed only for PDAL operations.
+<p>To do:</p>
 
-```
-#!/bin/bash
+<ul>
+<li>turn ccmake builds into cmake one-liners</li>
+</ul>
+
+<p>Caveats/disclaimer: This document is provided for advice only, and comes with no guarantee of success. Building things from source can have unintended impacts on other aspects of your machine. I've assumed here that the build environment starts clean and will be deployed only for PDAL operations.</p>
+
+<pre><code>#!/bin/bash
 #Documentation on buuilding the PDAL stack on Centos 7
 #taken heavily from here:
 # https://github.com/PDAL/PDAL/tree/master/scripts/linux-install-scripts
@@ -60,14 +65,14 @@ yum install numpy
 cd /local/build
 git clone https://github.com/verma/laz-perf.git laz-perf
 cd laz-perf
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr . && make && make install
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr . &amp;&amp; make &amp;&amp; make install
 cd ../
 
 #laszip
 git clone https://github.com/LASzip/LASzip.git laszip
 cd laszip
 git checkout 6de83bc3f4abf6ca30fd07013ba76b06af0d2098
-cmake . -DCMAKE_INSTALL_PREFIX=/usr && make && make install
+cmake . -DCMAKE_INSTALL_PREFIX=/usr &amp;&amp; make &amp;&amp; make install
 cd -
 
 #NB - the commit checked out above is taken from entwine docs and seems to work.
@@ -126,20 +131,22 @@ export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib"
 
 #update jsoncpp from source:
 Git clone https://github.com/open-source-parsers/jsoncpp.git
-mkdir jsoncpp-build && cd jsoncpp-build
+mkdir jsoncpp-build &amp;&amp; cd jsoncpp-build
 cmake3 -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo ../jsoncpp
-make && make install
+make &amp;&amp; make install
 #installs into /usr/lib - note this for entwine build
 
 #then entwine
 git clone https://github.com/connormanning/entwine.git
-mkdir entwine-build && cd entwine-build
+mkdir entwine-build &amp;&amp; cd entwine-build
 cmake3 -G "Unix Makefiles"     -DCMAKE_INSTALL_PREFIX=/usr     -DCMAKE_BUILD_TYPE=RelWithDebInfo ../entwine
 #configure jsoncpp libraries here:
 ccmake3 ../entwine
-make && make install
+make &amp;&amp; make install
 cd ../
 
 #finally the greyhound pointcloud server (used for querying the entwine index)
 soon...
-```
+</code></pre>
+</article>
+  </div>
