@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>High resolution estimates of Antarctic sea ice thickness</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+				    <section>
+				    <h3>Toward high resolution estimates of Antarctic sea ice thickness</h3>
+				    <p>
+				    Adam Steer</p>
+				    </section>
+				    <section>
+				    <h4>Supervisory team:</h4>
+				    <p>
+				    Dr Christopher Watson :: Dr Jan Lieser :: Dr Arko Lucieer :: Dr Jon Osborn</p>
+				    </section>
+				    <section>
+				    <h4>With substantial assistance from:</h4>
+				    <p>
+				    Dr Petra Heil (AAD) :: Dr Anthony Worby (ACE CRC) :: Dr Robert Massom (AAD) :: Dr Guy Williams<br />
+				    Peter Jansen :: Kym Newbery :: Helicopter Resources :: P & O Polar :: Many minions who dug holes in the freezing cold.</p>
+				    </section>
+				    <section>
+				    <h3>Agenda</h3>
+				    
+				    <ul>
+				        <li>Why - part 1 and 2:
+				        <ul>
+				            <li>Sea ice, climate and the Southern Ocean</li>
+				            <li>Satellites, altimeters, and scales</li>
+				        </ul>
+				        </li>  
+				        <li>Instruments and methods:
+				        <ul>
+				             <li>Helicopter lasers</li>
+				             <li>Drills and shovels and lasers</li>
+				             <li>Underwater robots without lasers</li>
+				        </ul>
+				        </li>
+				        <li>Results!
+				        <ul>
+				             <li>Snow depth modelling</li>
+				             <li>Data coregistration</li>
+				             <li>Sea ice thickness</li>
+				        </ul>
+				        </li>
+				        <li>Warts:
+				        <ul>
+				             <li>What can be better?</li>
+				        </ul>
+				        </li>
+				        <li>Summary</li>				    
+				    </ul>
+				    
+				    </section>
+				</section>
+				<section>
+				    <section>
+				    <h3>Why - part 1</h3>
+				    <p>
+				    The thickness distribution of Antarctic sea ice is very poorly described. Its variability at floe to sub-floe scales is unknown.</p>
+				    </section>
+				    <section>
+				     <img data-src="images/seaice.earthsystem.png">
+				    </section>
+				     <section>
+				     <img data-src="images/seaice.biome.png">
+				    </section>
+				    
+				    <section>
+				    <h3>Why - part2</h3>
+				    <p>
+				    Sea ice is highly variable at sub-100m scales - which satellite altimeters cannot (yet) detect</p>
+				    </section>
+				    <section>
+				     <img data-src="images/is7_scales.png">
+				    </section>
+				    
+				    <section>
+				    <p>
+				    Can we estimate sea ice thickness over areas big enough to compare with satellites, at a resolution comparable to field observations?</p>
+				    </section>
+				    
+				    <section>
+				     <img data-src="images/seaice.terms.png">
+				    </section>
+				    
+				    
+				</section>
+				<section>
+				    <section>
+				    <h1>What data?</h1>
+				    
+				    
+				    
+				    </section>			
+				    <section>
+				    <h1>What instruments?</h1>
+				    <p>
+				    ...a tale of evolution.
+				    
+				    
+				    </section>
+				    <section>
+				    <h1>What methods?</h1>
+				    ...we made them up!
+				    
+				    </section>			
+				</section>
+				<section>Slide 2</section>
+				<section>Slide 2</section>
+				<section>Slide 2</section>
+				<section>Slide 2</section>
+				<section>Slide 2</section>
+				<section>Slide 2</section>
+				<section>Slide 2</section>
+				<section>Slide 2</section>
+				<section>Slide 2</section>				
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+				slideNumber: true,
+				
+				// Parallax background image
+                parallaxBackgroundImage: './images/seaice_bg2.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+    // Parallax background size
+                parallaxBackgroundSize: '3098px 1745px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+    // Number of pixels to move the parallax background per slide
+    // - Calculated automatically unless specified
+    // - Set to 0 to disable movement along an axis
+                parallaxBackgroundHorizontal: 200,
+                parallaxBackgroundVertical: 50,
+				
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
