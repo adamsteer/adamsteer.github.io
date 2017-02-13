@@ -1,2 +1,2 @@
 # adamsteer.github.io
-github pages
+I take it this is used as the page index 
