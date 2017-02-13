@@ -196,12 +196,21 @@
 				    </section>
 				    <section>
                     <img data-src="images/icefloe_survey.png">
+                    <aside class="notes">
+				    This shows a setup used to create a local coordinate system which drifted with the ice floe being sampled. Using the total station (rear tripod) allowed georeferencing of things on the ice floe. Using data collected by the two GPS units allowed the translation of remote things (aircraft) to the local coordinate system, or vice versa - translation of the ice floe to world coordinates at some point in time.
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/ch4_figure2_is6map.png">
+                    <aside class="notes">
+				    This is an ice floe map showing aerial photography, an AUV track, and drill hole locations in ice-floe-local coordinates.
+                    </aside>
 				    </section>
           			<section>
                     <img data-src="images/is6_map.png">
+                    <aside class="notes">
+				    This is essentially the same map, adding sampling locations for a handheld snow probe (magnaprobe) from a walked trajectory inside an intensively-surveyed plot. Also show are terrestrial laser scanner deployment sites and registration targets.
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/3_swaths.png">
@@ -248,24 +257,45 @@
 				    </section>
 				    <section>
                      <img data-src="images/utas_ovals_a.jpg">
+                     <aside class="notes">
+				    Here is some LiDAR over the University of Tasmania oval. It's shown to set up for the next slide, to demonstrate a problem with picking a reference surface. The Blue line shows a transect of data we investigate more closely.
+                    </aside>
 				    </section>
 				    <section>
                      <img data-src="images/utas_ovals_b.jpg">
+                    <aside class="notes">
+				    Looking in more detail, we see that there is quite a bit of noise in elevations measured over the oval - which has about a 1cm tall grass cover. So, in this situation which points should we use if we fly over sea ice and want to find water? We'll get to that shortly!
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/ch4_figure1_overviewmap.png">
+                    <aside class="notes">
+				    First, let's take a look at where we are flying. The red line is where the RSV Aurora Australis sailed on the SIPEX II voyage. Numbered circles are field sites, and the two LiDAR survey flights I use for the rest of the analysis are highlighted.
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/ch4_intensity_thresh_results.png">
+                    <aside class="notes">
+				    To figure out a water surface, we first need to identify points which fall on 'not ice'. This is a two stage process, with an intensity filter selecting green points. This sometimes picks points which lie on ice, but those are always isolated. A neighbourhood size filter is applied, retaining the blue points as canonical 'water'.
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/ch4_water_points_adjust.png">
+                    <aside class="notes">
+				    We use these to 'level' the LIDAR. Interpolating a smooth spline surface between water points, and subtracting the surface from all remaining points.
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/totalfreeboard_lidar_p_is6.jpg">
+                    <aside class="notes">
+				    Blue points are 'water' points in the original LiDAR dataset, green points are the water points after levelling. Note that the process is not perfect - but we know all the details about how it works, rather than relatively complex tide, geoid and other sea surface topography models.
+                    </aside>
 				    </section>				    
 				    <section>
                     <img data-src="images/ch4_fig4.5.png">
+                    <aside class="notes">
+				    ...but it works! Here we see surface topography along a drilled transect line as measured by drill hole observations, airborne LIDAR, and 3D photogrammetry. The LiDAR is not adjusted further after the levelling process described in the last slide, there photogrammetric point cloud needed a constant height translation.
+                    </aside>
 				    </section>
 				    <section>
                     <h3>Snow depth</h3>
@@ -276,9 +306,15 @@
                     <img data-src="images/figure1_sitemap.png">
                     <p>
                     3912 drill holes with snow depth and total freeboard</p>
+                    <aside class="notes">
+				    To estimate snow depth I examined the relationship between snow depth and total freeboard from drill hole observations taken on three research voyages to the East Antarctic pack ice zone - ARISE (2004), SIPEX (2007) and SIPEX II (2012).
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/figure2_regressionmodels_composed.png">
+                    <aside class="notes">
+				    Each voyage had its unique signature, with a sort of median signal arising when all the data were combined. This 'combined model' was used to estimate snow depth in further analysis. Again, it is imperfect - but the alternatives were passive satellite estimates with known issues over deformed ice, assuming that total freeboard is always a snow signal (also not true), or applying a mean snow depth to all of the LiDAR points (also not true). This is one area that needs further work...
+                    </aside>
 				    </section>
 				    <section>
 				    <h3>Ice draft</h3>
@@ -297,6 +333,9 @@
 				    </section>			    
 				    <section>
                     <img data-src="images/ch4_estimate_density_2snowmodels.png">
+                    <aside class="notes">
+				    Here I varied density until the mean sea ice draft at a floe scale matched the AUV-observed draft for the same patch of ice. This density was used to model sea ice thickness from LiDAR points, along with snow depths estimated above.
+                    </aside>
 				    </section>
 				</section>
 				<section>
@@ -312,23 +351,38 @@
 				    <section>
                     <img data-src="images/is6_lidar_auv_draft_top.png">
                     <aside class="notes">
-				    Here is one reason why - our holes (orange) for this site pretty much sample only the least deformed ice!
+				    Here is one reason why - our drill holes (orange) for this site pretty much sample only the least deformed ice!
                     </aside>
 				    </section>
 				    <section>
                     <img data-src="images/ch4_dist_holes_fbcomp.png">
+                    <aside class="notes">
+				    Showing that LiDAR-derived freeboard agrees with drill hole derived freeboard for a distributed drill hole set.
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/is6_photo_auv_draft_top.png">
+                    <aside class="notes">
+				    Showing that total freeboard derived from 3D photogrammetry agrees with drill hole derived and LIDAR freeboard for a distributed drill hole set.
+                    </aside>
 				    </section>
 				    <section>
                     <img data-src="images/draft_diffs.png">
+                    <aside class="notes">
+				    A difference map of ice draft (the ocean-ice interface) from AUV observations and modelled draft from airborne LiDAR. The main point is that LiDAR-derived draft shows deeper, narrower ridges and artificial topography on flatter ice regions.
+                    </aside>
 				    </section>
 					<section>
                     <img data-src="images/tf_rough_smooth.png">
+                    <aside class="notes">
+				    A rough classification of 'rough' (ridged/deformed) and 'smooth' (relatively undeformed) surface topography.
+                    </aside>
 				    </section>
 					<section>
                     <img data-src="images/draft_rough_smooth.png">
+                    <aside class="notes">
+				    Now looking at ice draft estimates for both 'rough' and 'smooth' surface topography. This is essentially showing that for the most part, a relationship between surface ridging and under-ice keels exists, but we can see a lot of deep keels under 'smooth' surface ice (panel A), which are missed if we make simple models of ice draft from topography.
+                    </aside>
 				    </section>
 
 				    <section>
@@ -343,6 +397,9 @@
 				    </section>
 				    <section>
                     <img data-src="images/DSC0067.jpg">
+                    <aside class="notes">
+				    This image shows why deformed ice sampling is unpopular. This is the drill used to penetrate 9.3 m of sea ice under the tripod shown in the image!
+                    </aside>
 				    </section>
 				</section>
 				<section>
