@@ -22,14 +22,31 @@ In the same way you can pipe outputs from one command to another in a bash shell
 This can happen on the command line:</p>
 
 <pre>
-
+$ pdal pipeline --readers.las.filename=input.las --writers.laz.filename=output.laz
 </pre>
 
 <p>
 ... but is more commonly executed by feeding a JSON configuration file to PDAL, for example:</p>
 
 <pre>
+{
+    "pipeline": [
+        {
+            "type": "readers.las",
+            "filename":"input.las"
+        },
+        {
+            "type": "writers.laz",
+            "filename":"output.laz"
+        }
+    ]
+}
+</pre>
 
+<p>
+...and then passing it as a payload:</p>
+<pre>
+$ pdal pipeline some_tasks.json
 </pre>
 
 <p>
@@ -44,7 +61,6 @@ Pipeline syntax is a little tricky to get a handle on - the basic flow, however 
 <pre>
 {
     "pipeline": [
-        "input data and any specific reader instructions",
         {
             operation1parameter1,
             operation1parameter2
@@ -53,7 +69,6 @@ Pipeline syntax is a little tricky to get a handle on - the basic flow, however 
             operation2parameter1,
             operation2parameter2
         },
-        "output data and any specific writer instructions"
     ]
 }
 </pre>
@@ -61,14 +76,112 @@ Pipeline syntax is a little tricky to get a handle on - the basic flow, however 
 <p>
 You'll see this as we progress through the rest of the PDAL tasks - the pipeline is a fundamental application for most PDAL operations. We'll step through a simple example here, and learn more about pipelines as we attack other tasks in this workshop.</p>
 
+<p>
+You will also see that PDAL understands a lot of shorthand - which we demonstrate below.</p>
+
+
 <h3>Data translation with a pipeline</h3>
 
+<p>
+Open a new text file, name it 'las2laz.json' and paste in the following JSON:
+<pre>
+{
+    "pipeline": [
+           {
+                "type": "readers.las",
+                "filename":"./g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las"},
+        {
+            "type": "writers.laz",
+            "filename":"/Merimbula2013-C3-AHD_7605910_55_0002_0002.laz"
+    ]
+}
+</pre>
+
+In the same directory, type:
+
+<pre>
+$ pdal pipeline las2laz.json
+</pre>
+
+<p>
+...after a wait, the command prompt will return and you should be able to see the new .laz file you've just created. it should be substantially smaller - compare it's size on disk with the source .las file:</p>
+
+<pre>
+$ du -h ./Merimbula2013-C3-AHD_7605910_55_0002_0002.laz
+$ du -h ./g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las
+</pre>
+
+<p>
+...and use your knowledge of PDAL's metadata capabilities to check the integrity of your new .laz file.</p>
+
+<p>
+This task can be done as a one-liner in PDAL translate, so why learn pipelines? In the next example you will start to see.</p>
 
 
+<h3>Simple data filter with a pipeline</h3>
+<p>
+Great! We can compress a file. What else can we do? Let's extract only points which are classified as buildings, and compress the results. Here, we add a filter stage in between the reading and writing stages:</p>
 
+<pre>
+{
+    "pipeline": [
+           {
+                "type": "readers.las",
+                "filename":"/g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las"
+            },
+            {
+            "limits": "Classification[6:6]",
+            "type": "filters.range"
+        },
+        {
+            "type": "writers.laz",
+            "filename":"/merimbula_buildings.laz"
+            }
+    ]
+}
+</pre>
 
-<a href="./index.html">Back to base</a>
+<p>
+Now that's super messy. So we use PDAL's understanding of file formats to do some shorthand:</p>
+<pre>
 
+{
+    "pipeline": [
+        "/g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las",
+        {
+            "limits": "Classification[6:6]",
+            "type": "filters.range"
+        },
+        "./merimbula_buildings.laz"
+    ]
+}
+</pre>
+
+<p>
+...which does exactly the same task:</p>
+<ol>
+    <li>Recognise that our input file is a .las file and read it</li>
+    <li>Select only building-classified points</li>
+    <li>Write the selected points out to a compressed .laz file</li>
+</ol>
+
+<p>
+For a challenge - how might we check whether we actually only have buildings left in our new dataset?</p>
+
+<p>
+More reading: <a href="http://www.pdal.io/pipeline.html#pipeline">http://www.pdal.io/pipeline.html#pipeline</a></p>
+
+<p>
+<a href="./index.html">Back to base</a></p>
+
+<hr>
+<div class="alert alert-info" role="alert">
+<b>Exercise hints</b>
+<ol>
+    <li>A simple check to see if a conversion between file formats has worked is to look at the total number of points - try '$pdal info --summary | grep count' for both the original and compressed files.</li>
+    <li>Checking that our buildings-only file actuallu contains only buildings classes is trickier - a quick visualisation is the current best approach, so we will leave that task for a little while</li>
+</ol>
+</div>
 
 </div>
 </body>
