@@ -1,4 +1,4 @@
-<h1>PDAL on the VDI: Setup and testing</h1>
+<h1>PDAL on the VDI: Setup and metadata examination</h1>
 
 <h2>Add PDAL in the module load system</h2>
 <p>
@@ -38,7 +38,15 @@ If you're a GDAL user, PDAL metadata querying will look familiar:</p>
 pdal info /path/to/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las</pre>
 
 <p>
-This will return some JSON output telling you all about the LAS tile you queried, and basic statistics on each of its dimensions. Try:</p>
+This will return a long JSON output stream telling you all about the LAS tile you queried, and basic statistics on each of its dimensions.</p>
+
+<p>
+<b>If you got this far, you have a working PDAL - and you've used it for a metadata query!</b></p>
+
+
+<h2>Metadata exercises</h2>
+<p>
+Try:</p>
 
 <pre>
 pdal info</pre>
