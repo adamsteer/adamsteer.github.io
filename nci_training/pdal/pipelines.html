@@ -10,45 +10,49 @@
 <body>
 <div class="container theme-showcase" role="main">
   
-<h1>PDAL on the VDI: data translation</h1>
+<h1>PDAL on the VDI: pipelines/h1>
 
 <div class="alert alert-warning" role="alert">
 If you've jumped straight to this lesson and PDAL doesn't appear to exist on your VDI session, please head to the <a href="./pdal_setup.html">setup and test</a> lesson and then come back.</div>
 
-
-<h2>Why PDAL translate</h2>
+<h2>What is a PDAL pipeline?</h2>
 <p>
-All data are not equal in the eyes of analysis packages or research purposes. So we need to translate datasets between standard formats, modify metdata, or apply transformations to the point data themselves. PDAL's translate application acts pretty much like GDAL's translate.</p>
+In the same way you can pipe outputs from one command to another in a bash shell prompt, you can pipe data from one PDAL function to another using the pipeline application</p>
 <p>
-A number of possible scenarios are shown below, - step through some or all of them, and if you have a case that doesn't appear let the class know and we can work through it!</p>
+This can happen on the command line:</p>
 
-<div class="alert alert-warning" role="alert">
-Reminder - the data are here: /g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las
-</div>
+<pre>
 
-\
-<h3>Case 1: My tile elevations are too low by some constant offset</h3>
+</pre>
+
 <p>
+... but is more commonly executed by feeding a JSON configuration file to PDAL:</p>
 
+<pre>
 
+</pre>
 
-<h3>Case 2: I need to reproject from GDA94 to UTM</h3>
 <p>
+Pipeline syntax is a little tricky to get a handle on - the basic flow, however is:</p>
 
+<pre>
+{
+    "pipeline": [
+        "input data and any specific reader instructions",
+        {
+            operation1parameter1,
+            operation1parameter2
+        },
+        {
+            operation2parameter1,
+            operation2parameter2
+        },
+        "output data and any specific writer instructions"
+    ]
+}
+</pre>
 
-<h3>Case 3: My tools require LAS 1.4, I have LAS 1.2</h3>
-<p>
-
-
-<h3>Case 4: I need to compress my LAS files to LAZ files</h3>
-
-
-<h3>Case 5: I have points as text and I want to LAZ them</h3>
-
-
-
-
-<h2>Translation exercises</h2>
+<h2>Pipeline exercises</h2>
 <p>
 Try:</p>
 
