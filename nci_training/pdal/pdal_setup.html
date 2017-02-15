@@ -1,0 +1,60 @@
+<h1>PDAL on the VDI: Setup and testing</h1>
+
+<h2>Add PDAL in the module load system</h2>
+<p>
+PDAL operates in the NCI module load system. To get started, open a new VDI terminal screen and type:</p>
+
+<pre>
+$ module load PDAL</pre>
+<p>
+Investigate the results:
+<pre>
+$ module list
+Currently Loaded Modulefiles:
+  1) pbs                       3) proj/4.8.0
+  2) gcc/4.7.3                 4) pdal/1.3.0-py3.5(1.3.0)
+</pre>
+<p>
+The PBS module is loaded by default on the VDI. What we get alongside PDAL/1.3.0-py3.5 is proj/4.8.0, required for or reprojection tasks in PDAL; and gcc/4.7.3 is loaded as part of the module load process.</p>
+<p>
+<b>Note</b> we have a strong hint here for using PDAL's Python modules later - we need to use Python 3.</p>
+
+<h2>Check that PDAL works</h2>
+<p>
+A simple operational check is to grab some metadata from a LAS file. We'll use the Geoscience Australia elevation reference dataset, hosted on NCI at <pre>/g/data/rr1/Elevation</pre></p>
+<p>
+In particular, we'll use a LiDAR survey flown over Merimbula in 2013:</p>
+<pre>
+/g/data1/Elevation/Merimbula0313/Tiles_2k_2k
+<pre>
+<p>
+If you're a GDAL user, PDAL metadata querying will look familiar:</p>
+
+<pre>
+pdal info /path/to/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las
+</pre>
+
+<p>
+This will return some JSON output telling you all about the LAS tile you queried, and basic statistics on each of it's dimensions. Try:</p>
+
+<pre>
+pdal info
+</pre>
+
+<p>
+...to get some other options and see if you can:</p>
+
+<ol>
+   <li>Return a shorter set of metadata</li>
+   <li>In this metadata, find the LAS file format major and minor version (hint - using 'grep' will make your life a lot easier</li>
+   <li>Return a polygon showing the geospatial extents of the file you queried.</li>
+<ol>
+
+<a href="./index.html">Back to base</a>
+
+<hr>
+<b>Exercise hints</b>
+<ol>
+<li>try the --metadata flag. Using --summary and --schema tell you other interestings things, but you can't answer the next question with them.</li>
+<li>Look for the 'major version' and 'minor version' fields. Separate them with a full stop to get the version: 1.2</li>
+<li>Try '--boundary'. Is it the same as the 'bounds' field if you use --summary?
