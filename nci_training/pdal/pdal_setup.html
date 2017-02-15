@@ -22,11 +22,13 @@ The PBS module is loaded by default on the VDI. What we get alongside PDAL/1.3.0
 <h2>Check that PDAL works</h2>
 <p>
 A simple operational check is to grab some metadata from a LAS file. We'll use the Geoscience Australia elevation reference dataset, hosted on NCI at /g/data/rr1/Elevation</p>
+
 <p>
 In particular, we'll use a LiDAR survey flown over Merimbula in 2013:</p>
+
 <pre>
-/g/data1/Elevation/Merimbula0313/Tiles_2k_2k
-</pre>
+/g/data1/Elevation/Merimbula0313/Tiles_2k_2k</pre>
+
 <p>
 If you're a GDAL user, PDAL metadata querying will look familiar:</p>
 
@@ -48,7 +50,7 @@ pdal info
    <li>Return a shorter set of metadata</li>
    <li>In this metadata, find the LAS file format major and minor version (hint - using 'grep' will make your life a lot easier</li>
    <li>Return a polygon showing the geospatial extents of the file you queried.</li>
-<ol>
+</ol>
 
 <a href="./index.html">Back to base</a>
 
