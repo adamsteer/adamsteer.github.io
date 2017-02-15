@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <!-- Latest compiled and minified CSS -->
@@ -17,30 +16,35 @@
 If you've jumped straight to this lesson and PDAL doesn't appear to exist on your VDI session, please head to the <a href="./pdal_setup.html">setup and test</a> lesson and then come back.</div>
 
 
-<h2>Add PDAL in the module load system</h2>
+<h2>Why PDAL translate</h2>
 <p>
-PDAL operates in the NCI module load system. To get started, open a new VDI terminal screen and type:</p>
+All data are not equal in the eyes of analysis packages or research purposes. So we need to translate datasets between standard formats, modify metdata, or apply transformations to the point data themselves. PDAL's translate application acts pretty much like GDAL's translate.</p>
+<p>
+A number of possible scenarios are shown below, - step through some or all of them, and if you have a case that doesn't appear let the class know and we can work through it!</p>
 
-<pre>
-$ module load PDAL</pre>
-<p>
-Investigate the results:
-<pre>
-$ module list
-Currently Loaded Modulefiles:
-  1) pbs                       3) proj/4.8.0
-  2) gcc/4.7.3                 4) pdal/1.3.0-py3.5(1.3.0)
-</pre>
+<div class="alert alert-warning" role="alert">
+Reminder - the data are here: /g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las
+</div>
 
-<p>
-The PBS module is loaded by default on the VDI. What we get alongside PDAL/1.3.0-py3.5 is proj/4.8.0, required for or reprojection tasks in PDAL; and gcc/4.7.3 is loaded as part of the module load process.</p>
 
+<h3>Case 1: My tile elevations are too low by some constant offset</h3>
 <p>
-<b>Note</b> we have a strong hint here for using PDAL's Python modules later - we need to use Python 3.</p>
+LAS 1.4 is a new community standard, which is not (in 2017) in widespread use. Using PDAL, we can rewrite LAS data into other formats for specific uses. 
 
-<h2>Check that PDAL works</h2>
+
+<h3>Case 2: I need to reproject from GDA94 to UTM</h3>
 <p>
-A simple operational check is to grab some metadata from a LAS file. We'll use the Geoscience Australia elevation reference dataset, hosted on NCI at /g/data/rr1/Elevation</p>
+This is a case for users of tools like 
+
+<h3>Case 3: My tools require LAS 1.4, I have LAS 1.2</h3>
+<p>
+
+
+<h3>Case 4: I need to compress my LAS files to LAZ files</h3>
+
+
+<h3>Case 5: I have points as text and I want to LAZ them</h3>
+
 
 <p>
 In particular, we'll use a LiDAR survey flown over Merimbula in 2013:</p>
@@ -88,6 +92,7 @@ pdal info</pre>
     <li>Try '--boundary'. Is it the same as the 'bounds' field if you use --summary?</li>
 </ol>
 </div>
+
 </div>
 </body>
 </html>
