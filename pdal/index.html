@@ -1,0 +1,53 @@
+<h1>PDAL on the VDI</h1>
+
+<h2>Introduction</h2>
+<p>
+This is a modular workshop demonstrating the Point Data Abstraction Library (PDAL) on NCI's VDI. We use PDAL release 1.3.0, documentation can be found here: <a href="http://http://www.pdal.io">http://www.pdal.io</a>. it is aimed at NCI users who have had some exposure to working with point data obtained from airborne LiDAR, terrestrial LiDAR, 3D photogrammetry or multibeam bathymetry. Other point data formats exist, but are not yet useable in the PDAL ecosystem. Workshops on, for example, geophysical line data will be linked below as they arrive.</p>
+
+<h2>What is PDAL</h2>
+<p>
+PDAL is a set of C libraries and command-line applications designed to work with topology-free point data (ie not gridded)</p>
+
+<h2>Why would I want to use PDAL?</h2>
+<p>
+PDAL was designed to meet the needs of users working with airborne LiDAR datasets. It has since grown to accomodate a number of different styles of point cloud data, and ways to use them. It was an early adopter of the LAS 1.4 community standard, and offers the best open-source, interoperable point cloud data processing engine we have seen to date.</p>
+
+<h2>Who is this course aimed at?</h2>
+<p>
+Users with some experience in point cloud analysis, geospatial techniques and at least some exposure to the Linux command line environment</p>
+
+<h2>Prerequisites</h2>
+
+<p>
+<b>Attendee skills</b></p>
+<ul>
+    <li>A working knowledge of NCI's VDI module load system</li>
+    <li>A working knowledge of NCI's data storage structure (/g/data)</li>
+    <li>Basic unix command line skills</li>
+    <li>Basic Python and Jupyter notebook skills (for the PDAL + Python module)</li>
+</ul>
+
+<p>
+<b>Data and resources</b></p>
+<ul>
+    <li>A user account on NCI's VDI module load system</li>
+    <li>Access to data required for workshop tasks. This may be customised for each workshop, or drawn directly from user-specific project space on /g/data</li>
+</ul>
+
+<h2>Workshop tasks</h2>
+<ol>
+    <li><a href="./1_pdal_setup.html">Setup and test</a></li>
+    <li><a href="./2_metadata_translation.html">Metadata and basic translation</a></li>
+    <li><a href="./3_pipelines.html">PDAL pipelines</a></li>
+    <li><a href="./4_point_subset.html">Collecting a subset of a LiDAR survey</a></li>
+    <li><a href="./5_point_selection.html">Point selection by attribute - extracting a single class or intensity thresholding</a></li>
+    <li><a href="./6_data_qa.html">Some data QA</a></li>
+    <li><a href="./7_DSM_DTM.html">DSMs, DTMs, and Height-above-ground</a></li>
+    <li><a href="./8_PDAL_python.html">DSMs, DTMs, and Height-above-ground</a></li>
+    <li><a href="./9_postgres_pointcloud.html">Interacting with Postgres-pointcloud</a></li>
+</ol>
+
+<h2>Related workshops</h2>
+<ul>
+    <li>Processing geophysical line data</li>
+</ul>
