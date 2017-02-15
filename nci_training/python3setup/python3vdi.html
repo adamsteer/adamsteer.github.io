@@ -1,0 +1,110 @@
+<h1>Setting up Python 3 using the VDI module system</h1>
+
+<p>
+If you need to set up Python without access to a customised Anaconda environment, the module system on the VDI will work for you.</p>
+<p>
+This example shows how to set up <b>Python 3</b> on the VDI.</p>
+<p>
+<b>Note:</b> most Python applications will 'just work' in Python 3, but some are still dependent on Python 2. There is one small difference between Python 2 and 3 setup for virtual environments, we will get to that further down.</p>
+<p>
+To see what Pythons are available, open a fresh terminal and type:</p>
+
+<pre>
+$ module avail python
+-------------------------------------------------------- /apps/Modules/cloud/all ---------------------------------------------------------
+python-dateutil/2.5.3-py2.7(py2.7) python-dateutil/2.5.3-py3.5(py3.5)
+
+------------------------------------------------------- /apps/Modules/modulefiles --------------------------------------------------------
+python/2.7.11(default)   python/2.7.3-matplotlib  python/2.7.6             python3/3.3.0-matplotlib python3/3.5.2(default)
+python/2.7.11-matplotlib python/2.7.5             python/2.7.6-matplotlib  python3/3.4.3            python3/3.5.2-matplotlib
+python/2.7.3             python/2.7.5-matplotlib  python3/3.3.0            python3/3.4.3-matplotlib
+</pre>
+
+<p>
+You can see that various versions are available. To use Python 3.5.2 type:<p>
+
+<pre>
+$ module load python3/3.5.2
+</pre>
+
+<p>
+...and then check what loaded with module list:</p>
+
+<pre>
+$ module list</pre>
+
+<p>
+Since most scientific applications of Python rely on matplotlib, it is generally useful to load that too - noting that a Python standard module must be loaded first:</p>
+
+<pre>
+$ module load python3/3.5.2-matplotlib
+</pre>
+<p>
+...and check again what is loaded using module list. A final really useful component is GDAL, which is best loaded using the VDI module system:</p>
+
+<pre>
+$ module load gdal-python/1.11.1-py3.5
+</pre>
+
+<h2>Customising Python on the VDI</h2>
+<p>
+If you need some Python component that is not present Python's standard library, it is good to use a virtual environment. For Python 2 on the VDI, a separate module must be loaded. For Python 3, an environment manager is loaded as part of the Python standard library and no further modules are required.</p>
+<p>
+To create a virtual environment, the syntax is:</p>
+
+<pre>
+$ mkdir ~/venvs
+$ cd ~/venvs
+$ python3 -m venv vditest
+[venvs]$ source vditest/bin/activate
+(vditest) [venvs]$
+</pre>
+
+<p>
+Now you can safely use pip3 to install additional modules into this particular python instance:</p>
+
+<pre>
+(vditest) [venvs]$ pip3 install pandas
+</pre>
+
+<p>
+<b>Note:</b> keeping multiple virtual environments in your home directory on the VDI will rapidly consume your quota. If you have space on /g/data, keep your virtual environments there. You can monitor your local disk usage with the <pre>quota</pre> command.</p>
+<p>
+To capture the configuration of a virtual environment and use it to create another:</p>
+
+<pre>
+(vditest) [venvs]$ pip3 freeze > ~/vditest_requirements.txt</pre>
+
+
+<p>
+To switch virtual environments:</p>
+
+<pre>
+(vditest) [venvs]$ source /path/to/other_venv/bin/activate
+(other_venv) [venvs]$ source vditest/bin/activate
+(vditest) [venvs]$
+</pre>
+<p>
+<b>Note:</b> switching environments doesn't change your current working path, just the available Python setup.</p>
+
+<p>
+To exit a virtual environment:</p>
+
+<pre>
+(vditest) [venvs]$ deactivate</pre>
+
+<p>
+<b>Note:</b> if you are used to Conda environments, you'll naturally type <pre> source deactivate vditest</pre>. In the Python 3 virtual environment ecosystem, only <pre>deactivate</pre> is required.</p>
+
+<p>
+To create a new virtual environment with the same configuration:</p>
+
+<pre>
+[venvs]$ pyvenv vditest_clone
+[venvs]$ source vditest_clone/bin/activate
+(vditest_clone) [venvs]$
+[venvs]$ pip3 install -r ~/vditest_requirements.txt
+</pre>
+<p>
+For Python 2.x setup on the VDI, and more background on virtual environments, refer to the existing <a href="https://github.com/nci/nci-notebooks/tree/master/Python_VDI" title="link to Python 2 setup notes at NCI's gihtub repository">Python in the VDI</a> course material.</p>
+
