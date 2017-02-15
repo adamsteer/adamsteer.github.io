@@ -10,7 +10,7 @@
 <body>
 <div class="container theme-showcase" role="main">
   
-<h1>PDAL on the VDI: pipelines/h1>
+<h1>PDAL on the VDI: pipelines</h1>
 
 <div class="alert alert-warning" role="alert">
 If you've jumped straight to this lesson and PDAL doesn't appear to exist on your VDI session, please head to the <a href="./pdal_setup.html">setup and test</a> lesson and then come back.</div>
@@ -26,11 +26,17 @@ This can happen on the command line:</p>
 </pre>
 
 <p>
-... but is more commonly executed by feeding a JSON configuration file to PDAL:</p>
+... but is more commonly executed by feeding a JSON configuration file to PDAL, for example:</p>
 
 <pre>
 
 </pre>
+
+<p>
+We will deploy and explain this example shortly.</p>
+
+<div class="alert alert-warning" role="alert">
+Note - prior to PDAL 1.3.0, pipeline configuration files were declared in XML, and a lot of examples in the wild internet still use XML pipelines. You will need to translate any useful examples to JSON.</div>
 
 <p>
 Pipeline syntax is a little tricky to get a handle on - the basic flow, however is:</p>
@@ -52,31 +58,17 @@ Pipeline syntax is a little tricky to get a handle on - the basic flow, however 
 }
 </pre>
 
-<h2>Pipeline exercises</h2>
 <p>
-Try:</p>
+You'll see this as we progress through the rest of the PDAL tasks - the pipeline is a fundamental application for most PDAL operations. We'll step through a simple example here, and learn more about pipelines as we attack other tasks in this workshop.</p>
 
-<pre>
-pdal translate --help</pre>
+<h3>Data translation with a pipeline</h3>
 
-<p>
-...to get some other options and see if you can:</p>
 
-<ol>
-   <li>Return a shorter set of metadata</li>
-   <li>In this metadata, find the LAS file format major and minor version (hint - using 'grep' will make your life a lot easier</li>
-   <li>Return a polygon showing the geospatial extents of the file you queried.</li>
-</ol>
+
+
 
 <a href="./index.html">Back to base</a>
 
-<hr>
-<div class="alert alert-info" role="alert">
-<b>Exercise hints</b>
-<ol>
-    <li></li>
-</ol>
-</div>
 
 </div>
 </body>
