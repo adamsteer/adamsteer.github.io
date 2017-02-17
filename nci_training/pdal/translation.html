@@ -26,26 +26,53 @@ A number of possible scenarios are shown below, - step through some or all of th
 Reminder - the data are here: /g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las
 </div>
 
-\
-<h3>Case 1: My tile elevations are too low by some constant offset</h3>
+
+<h3>Case 1: I need to compress my LAS files to LAZ files</h3>
+
 <p>
+This is a common and really simple case. LAZ is an open, non-lossy compression format for LAS data which uses roughly one-fifth of the storage space - and many tools work transparently with the LAZ format. So we can save some pain on disk (or in file sharing) as follows:
+<pre>
+$ pdal translate \
+/g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las \
+./Merimbula2013-C3-AHD_7605910_55_0002_0002.laz
+</pre>
 
-
-
-<h3>Case 2: I need to reproject from GDA94 to UTM</h3>
 <p>
+Check your work:</p>
+<pre>
+$ du -hs /g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las
+
+$ du -hs ./Merimbula2013-C3-AHD_7605910_55_0002_0002.laz
+</pre>
+
+<h3>Case 2: My tools require LAS 1.3, I have LAS 1.2</h3>
+
+<pre>
+$ pdal translate \
+/g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las \
+</pre>
 
 
-<h3>Case 3: My tools require LAS 1.4, I have LAS 1.2</h3>
+<h3>Case 3: I have points as text and I want to LAZ them</h3>
+
+
+
+<h3>Case 4: I need to reproject from GDA94 to UTM</h3>
 <p>
+First a note of caution - <b>reprojection is always lossy</b>. With LiDAR data the best practice is to regenerate points in the required projection, but that is not always possible.</p>
+<p>
+Our UTM zone for this exercise is 55 South, so using PDAL we can do:
+
+<pre>
+$ pdal translate \
+/g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las \
+Merimbula2013-C3-UTM_7605910_55_0002_0002.las
+</pre>
 
 
-<h3>Case 4: I need to compress my LAS files to LAZ files</h3>
 
-
-<h3>Case 5: I have points as text and I want to LAZ them</h3>
-
-
+<h3>Case 5: My tile elevations are too low by some constant offset</h3>
+<p>
 
 
 <h2>Translation exercises</h2>
@@ -59,9 +86,9 @@ pdal translate --help</pre>
 ...to get some other options and see if you can:</p>
 
 <ol>
-   <li>Return a shorter set of metadata</li>
-   <li>In this metadata, find the LAS file format major and minor version (hint - using 'grep' will make your life a lot easier</li>
-   <li>Return a polygon showing the geospatial extents of the file you queried.</li>
+   <li>Check the metadata of your LAZ tile from exercise 1 to see if your compressed data are actually the same as the uncompressed data</li>
+   <li>What else can you translate your LAS tile to? Try to convert your LAS tile to some different formats.</li>
+    <li>How can we verify that our reprojection has worked? Have a brainstorm, and discuss with the workshop group.</li>
 </ol>
 
 <a href="./index.html">Back to base</a>
@@ -70,7 +97,8 @@ pdal translate --help</pre>
 <div class="alert alert-info" role="alert">
 <b>Exercise hints</b>
 <ol>
-    <li></li>
+    <li>Check the <a href="./pdal_setup.html">setup lesson</a> for metadata hints.</li>
+    <li>Read the docs at <a href="./pdal_setup.html">setup lesson</a> - and discuss in thr workshop what you found.</li>
 </ol>
 </div>
 
