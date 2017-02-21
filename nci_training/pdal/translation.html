@@ -38,7 +38,7 @@ $ pdal translate \
 </pre>
 
 <p>
-Check your work:</p>
+Check your work - in this case we see the LAZ version occupies about 1/8 of the space on disk.</p>
 <pre>
 $ du -hs /g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las
 
@@ -46,49 +46,47 @@ $ du -hs ./Merimbula2013-C3-AHD_7605910_55_0002_0002.laz
 </pre>
 
 <h3>Case 2: My tools require LAS 1.3, I have LAS 1.2</h3>
+<p>
+Not all LAS is created equally - and the specification has evolved with the surveying industry. Here we translate forward from 1.2 to 1.3. Notably, PDAL reads and translates <b>LAS 1.4</b> just as easily:
 
 <pre>
-$ pdal translate \
-/g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las \
+$ pdal translate /g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las merimbula_las13.las --writers.las.minor_version=3 
 </pre>
+
+<p>
+Use your knowledge of PDAL metadata to check your work </p>
 
 
 <h3>Case 3: I have points as text and I want to LAZ them</h3>
 
+<pre>
+$ pdal translate /g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.txt merimbula_las13.laz --writers.las.minor_version=3 
+</pre>
 
 
 <h3>Case 4: I need to reproject from GDA94 to UTM</h3>
 <p>
 First a note of caution - <b>reprojection is always lossy</b>. With LiDAR data the best practice is to regenerate points in the required projection, but that is not always possible.</p>
 <p>
-Our UTM zone for this exercise is 55 South, so using PDAL we can do:
+Our UTM zone for this exercise is 55 South (EPSG:32755), so using PDAL we can do:</p>
 
 <pre>
 $ pdal translate \
 /g/data/rr1/Elevation/Merimbula0313/z55/2013/Mass_Points/LAS/AHD/LAS/Tiles_2k_2k/Merimbula2013-C3-AHD_7605910_55_0002_0002.las \
-Merimbula2013-C3-UTM_7605910_55_0002_0002.las
+Merimbula2013-C3-UTM_7605910_55_0002_0002_EPSG32755.laz --filters.reprojection.out_srs="EPSG:32755"
 </pre>
-
-
-
-<h3>Case 5: My tile elevations are too low by some constant offset</h3>
-<p>
 
 
 <h2>Translation exercises</h2>
 <p>
 Try:</p>
 
-<pre>
-pdal translate --help</pre>
-
-<p>
-...to get some other options and see if you can:</p>
-
 <ol>
    <li>Check the metadata of your LAZ tile from exercise 1 to see if your compressed data are actually the same as the uncompressed data</li>
+    <li>One for esoteric LAS users: the LAS specification has different point storage formats as well as different versions. Alter the point storage format of your LAS tile.</li>
    <li>What else can you translate your LAS tile to? Try to convert your LAS tile to some different formats.</li>
     <li>How can we verify that our reprojection has worked? Have a brainstorm, and discuss with the workshop group.</li>
+
 </ol>
 
 <a href="./index.html">Back to base</a>
@@ -98,7 +96,8 @@ pdal translate --help</pre>
 <b>Exercise hints</b>
 <ol>
     <li>Check the <a href="./pdal_setup.html">setup lesson</a> for metadata hints.</li>
-    <li>Read the docs at <a href="./pdal_setup.html">setup lesson</a> - and discuss in thr workshop what you found.</li>
+    <li>You can set LAS point formats using the --writers.las options in PDAL. See: <a href="http://www.pdal.io/stages/writers.las.html">http://www.pdal.io/stages/writers.las.html</a></li>
+    <li>Read the docs at <a href="http://www.pdal.io/apps/translate.html">http://www.pdal.io/apps/translate.html</a> - and discuss your findings among the group</li>
 </ol>
 </div>
 
