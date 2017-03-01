@@ -20,12 +20,6 @@ In this map, we see on-the-fly generation of contours for a gravity map and an e
 <li> Elevation contours are generated on the fly from a tiled SRTM dataset held as NetCDF files. The tiles are not pre-mosaiced, and the contours are not pre-computed - although the spacing and styling is hard-coded.</li>
 </ul>
 
-<b>Why is SRTM contour rendering so slow?</b><br/>
-The underlying data are not well-made for fast access. What's happening here is that a tile index is being queried for which tiles to use to draw the map window you've selected. If it's a big area (ie all of Australia), all of the tiles are read into memory and processed to create contours at some level (ie 500m) determined by how far you are zoomed in or out. That's a lot of work!</p>
-<p>
-The underlying tiles are 1 degree squares. You'll see if you zoom in to a small area that contours will render much faster - because only one or two tiles need to be processed.</p>
-
-
 <div id="mapid" style="width: 1000px; height: 600px"></div>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 
@@ -68,7 +62,7 @@ var stamenTerrain = L.tileLayer(te_url, {
     minZoom: 0,
     maxZoom: 20,
     type: 'png',
-    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/b$
+    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
 });
 
 var tonerUrl = "http://{S}tile.stamen.com/toner/{Z}/{X}/{Y}.png";
@@ -82,7 +76,7 @@ var stamenToner = L.tileLayer(to_url, {
     minZoom: 0,
     maxZoom: 20,
     type: 'png',
-    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/b$
+    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
 });
 
 
@@ -118,7 +112,6 @@ Notes:<br />
 </div>
 </body>
 </html>
-
 
 
 
