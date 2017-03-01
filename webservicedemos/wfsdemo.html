@@ -19,7 +19,6 @@
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 
 <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
-<script src="./L.Grid.js"></script>
 <script src="http://labs.easyblog.it/maps/leaflet-panel-layers/dist/leaflet-panel-layers.min.js"></script>
 <script>
 
@@ -45,7 +44,7 @@ var te_url = terrainUrl.replace(/({[A-Z]})/g, function(s) {
     return s.toLowerCase();
 });
 
-var stvar stamenTerrain = L.tileLayer(te_url, {
+var stamenTerrain = L.tileLayer(te_url, {
     subdomains: ['','a.','b.','c.','d.'],
     minZoom: 0,
     maxZoom: 20,
@@ -84,8 +83,6 @@ var baselayers = {
 var overlays = {
                       'ACT bushfire management zones': ACT_BMZ
                 }
-
-var grid = L.grid().addTo(mymap);
 
 L.control.layers(baselayers,overlays,{'collapsed': false}).addTo(mymap);
 
