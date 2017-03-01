@@ -37,9 +37,8 @@ var ACT_BMZ = L.tileLayer.wms('http://130.56.244.246/geoserver/ACT_fireflood_fs/
     transparent: 'true',
     })
 
-
 var terrainUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
-
+    
 var te_url = terrainUrl.replace(/({[A-Z]})/g, function(s) {
     return s.toLowerCase();
 });
