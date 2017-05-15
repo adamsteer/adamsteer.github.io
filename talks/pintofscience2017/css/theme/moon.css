@@ -22,7 +22,7 @@ body {
   font-family: "Lato", sans-serif;
   font-size: 36px;
   font-weight: normal;
-  color: #93a1a1; }
+  color: #eeeeee; }
 
 ::selection {
   color: #fff;
@@ -44,7 +44,7 @@ body {
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #eee8d5;
+  color: #eee9e6;
   font-family: "League Gothic", Impact, sans-serif;
   font-weight: normal;
   line-height: 1.2;
@@ -230,7 +230,7 @@ body {
 .reveal section img {
   margin: 15px 0px;
   background: rgba(255, 255, 255, 0.12);
-  border: 4px solid #93a1a1;
+  border: 0px solid #93a1a1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }
 
 .reveal section img.plain {
