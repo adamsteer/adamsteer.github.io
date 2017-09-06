@@ -1,6 +1,6 @@
-<h1>NCI training notes</h1>
-<p>
-what's here?</p>
+# NCI training notes
+
+Training material developed and delivered for Australia's [National Computational Infrastructure](http://nci.org.au)
 
 - [Python3 setup on the VDI](./python3setup)
 - [using PDAL on the VDI](./pdal)
