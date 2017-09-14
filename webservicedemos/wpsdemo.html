@@ -61,6 +61,14 @@ var SRTM_contours = L.tileLayer.wms('http://130.56.244.246/geoserver/ads900/wms?
     transparent: 'true',
     })
 
+var dapwms_geophys = L.tileLayer.wms('http://dap-wms.nci.org.au/thredds/wms/rr2/geophysics/onshore_geodetic_Isostatic_Residual_v2_2016/onshore_geodetic_Isostatic_Residual_v2_2016.nc?', {
+    version: '1.3.0',
+    layers: 'grav_ir_anomaly',
+    styles: 'boxfill/alg',
+    format: 'image/png',
+    transparent: 'true',
+    })
+
 var terrainUrl = "http://{S}tile.stamen.com/terrain/{Z}/{X}/{Y}.png";
 
 var te_url = terrainUrl.replace(/({[A-Z]})/g, function(s) {
@@ -104,7 +112,8 @@ var baselayers = {
 
 var overlays = {
                       'Complete Bouguer Anomaly': GRAV1,
-                      'SRTM terrain': SRTM_contours
+                      'SRTM terrain': SRTM_contours,
+                      'dap-wms geodetic isostatic residual v2': dapwms_geophys
                 }
 
 
