@@ -4,4 +4,4 @@ Training material developed and delivered for Australia's [National Computationa
 
 - [Python3 setup on the VDI](./python3setup)
 - [using PDAL on the VDI](./pdal)
-- [Using QGIS on the VDI](./QGIS), along with programmatic ways to do the same jobs
+- [Using QGIS on the VDI](./qgis), along with programmatic ways to do the same jobs
