@@ -58,25 +58,34 @@ Note - here, sections are collections of 50 or so individual house blocks. Our e
 #### Elevation
 
 We use an SRTM elevation mosaic, held in Geoscience Australia's elevation reference collection:
+
 THREDDS
-http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html
+```http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html```
+
 Geonetwork
-https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f9082_1236_9859_8989
-Licensed under Creative Commons (CCBY4): http://dapds00.nci.org.au/thredds/fileServer/licenses/rr1_licence.pdf
+```https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f9082_1236_9859_8989```
+
+Licensed under Creative Commons (CCBY4): http://dapds00.nci.org.au/thredds/fileServer/licenses/rr1\_licence.pdf
+
 The path to the data on your VDI desktop is:
-/g/data1/rr1/Elevation/NetCDF/
+
+```/g/data1/rr1/Elevation/NetCDF/```
+
 As a demonstration, we will acquire these data using a Web Coverage Service (WCS).
 
 
 #### Tree cover
 We will extract tree cover data from the filesystem.
 These data come from the ANU Water and Landscape Dynamics collection:
+
 THREDDS
-http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html
+```http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html```
+
 Geonetwork
-http://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1104_2906_7276_3004
+```http://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1104_2906_7276_3004```
+
 The path to the data on your VDI desktop is:
-/g/data1/ub8/Elevation/NetCDF/
+```/g/data1/ub8/Elevation/NetCDF/```
 
 ## 4. Start QGIS on the VDI
 
@@ -116,7 +125,7 @@ Click on the 'WCS' link to see the WCS getCapabilities statement - which describ
 - the thing we want to do (get a coverage): request=GetCoverage
 - the coverage (or layer) we want to get: Coverage=elevation
 - the boundary of the layer we want: bbox=148.7,-35.8,149.5,-35.1
-- the format we want to get our coverage as: format=GeoTIFF_Float
+- the format we want to get our coverage as: format=GeoTIFF\_Float
 
 To build a WCS request we concatenate the data path and dataset name, put a question mark after the dataset name, then add the rest of the labels describing the thing we want afterward, in any order, separated by ampersands:
 
@@ -149,7 +158,7 @@ This results in a subset of the ANU WALD treecover dataset in our VDI desktop - 
 **note box**
 You could just as easily load a complete NetCDF file from /g/data into QGIS - as long as the underlying file format meets defined netCDF conventions. Try adding this gravity map - it meets NetCDF-CF, and loads without any modification: 
 
-/g/data/rr2/National\_Coverages/onshore\_Bouguer\_offshore\_Freeair\_gravity\_geodetic\_June\_2009/ onshore\_Bouguer\_offshore\_Freeair\_gravity\_geodetic\_June\_2009.nc
+```/g/data/rr2/National\_Coverages/onshore\_Bouguer\_offshore\_Freeair\_gravity\_geodetic\_June\_2009/ onshore\_Bouguer\_offshore\_Freeair\_gravity\_geodetic\_June\_2009.nc```
 
 Here, we demonstrate a method of quickly viewing parts of your output data - even if they are not yet fully QC'ed and need a little massaging to get going.
 
