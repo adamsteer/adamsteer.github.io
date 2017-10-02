@@ -60,9 +60,11 @@ Note - here, sections are collections of 50 or so individual house blocks. Our e
 We use an SRTM elevation mosaic, held in Geoscience Australia's elevation reference collection:
 
 THREDDS
+
 ```http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html```
 
 Geonetwork
+
 ```https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f9082_1236_9859_8989```
 
 Licensed under Creative Commons (CCBY4): http://dapds00.nci.org.au/thredds/fileServer/licenses/rr1\_licence.pdf
@@ -79,17 +81,21 @@ We will extract tree cover data from the filesystem.
 These data come from the ANU Water and Landscape Dynamics collection:
 
 THREDDS
+
 ```http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html```
 
 Geonetwork
+
 ```http://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1104_2906_7276_3004```
 
 The path to the data on your VDI desktop is:
+
 ```/g/data1/ub8/Elevation/NetCDF/```
 
 ## 4. Start QGIS on the VDI
 
 Like most VDI applications, we use the module load system to acquire QGIS, GDAL and NCO:
+
 ```
 module purge
 module load gdal-python/1.11.1-py2.7 qgis/2.14.8-py2.7
