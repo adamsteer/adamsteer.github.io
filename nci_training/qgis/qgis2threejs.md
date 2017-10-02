@@ -45,10 +45,12 @@ Before we forge ahead, let's make a project space - in the terminal head to your
 
 To answer our question we need some data on topography, vegetation and where block boundaries are.
 From NCI's collections we can use:
+
 - A Shuttle Radar Topography Mission raster DEM at 1 arc-second resolution: /g/data/rr1/
 - Some tree cover indices from the ANU Water and Landscape Dynamics collection: /g/data2/ub8/
 
 NCI doesn't hold cadastral data, so we'll get those from the local land administrator:
+
 - ACT cadastral data outlining sections (held outside NCI)
 
 Note - here, sections are collections of 50 or so individual house blocks. Our elevation and tree cover data are too coarse for individual house blocks - and the vector data file for blocks is massive!
@@ -75,8 +77,8 @@ The path to the data on your VDI desktop is:
 
 As a demonstration, we will acquire these data using a Web Coverage Service (WCS).
 
-
 #### Tree cover
+
 We will extract tree cover data from the filesystem.
 These data come from the ANU Water and Landscape Dynamics collection:
 
