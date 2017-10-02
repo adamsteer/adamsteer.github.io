@@ -1,6 +1,6 @@
 # Exploratory data analysis and visualisation using QGIS
 
-## In this exercies
+## In this exercise
     
 - How to use **QGIS** (http://qgis.org) as a tool for interacting with data using web data services and on the VDI filesystem
 - Obtaining data from a Web Coverage Service (WCS)
@@ -53,7 +53,7 @@ NCI doesn't hold cadastral data, so we'll get those from the local land administ
 
 Note - here, sections are collections of 50 or so individual house blocks. Our elevation and tree cover data are too coarse for individual house blocks - and the vector data file for blocks is massive!
 
-### 3. Take a look at the data held at NCI
+## 3. Take a look at the data held at NCI
 
 #### Elevation
 
@@ -78,7 +78,7 @@ http://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1104_2
 The path to the data on your VDI desktop is:
 /g/data1/ub8/Elevation/NetCDF/
 
-### 4. Start QGIS on the VDI
+## 4. Start QGIS on the VDI
 
 Like most VDI applications, we use the module load system to acquire QGIS, GDAL and NCO:
 ```
@@ -90,29 +90,56 @@ qgis &
 This will start QGIS - which we'll use shortly. For now, head to Firefox - we are off to discover some data!
 Note - we've also loaded NCO, which we will get to soon.
 
-### 5. Get topography data using Web Coverage Services
+## 5. Get topography data using Web Coverage Services
 
 For topography we need a terrain model in a raster format, e.g. GeoTIFF, which covers Canberra.
 Shuttle Radar Topography Mission (SRTM) data are a good source of reasonably detailed elevation data held at NCI as NetCDF tiles.
 
 We can head to the NCI Elevation collection here:
+
 http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/catalog.html
+
 ...and look for SRTM 1 second elevation as NetCDF. Browse to the NetCDF folder, click through to:
-http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/1secSRTM_DEMs_v1.0/DEM/catalog.html
+
+http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/1secSRTM\_DEMs\_v1.0/DEM/catalog.html
 
 A bunch of 1 degree tiles are shown here - but we will collect a region we want from the national mosaic:
-http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/1secSRTM_DEMs_v1.0/DEM/catalog.html?dataset=rr1/Elevation/NetCDF/1secSRTM_DEMs_v1.0/DEM/Elevation_1secSRTM_DEMs_v1.0_DEM_Mosaic_dem1sv1_0.nc
+
+http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/1secSRTM\_DEMs\_v1.0/DEM/catalog.html?dataset=rr1/Elevation/NetCDF/1secSRTM\_DEMs\_v1.0/DEM/Elevation\_1secSRTM\_DEMs\_v1.0\_DEM\_Mosaic\_dem1sv1\_0.nc
+
 Click on the 'WCS' link to see the WCS getCapabilities statement - which describes the data you can obtain here. We need to know the name for the coverage we need - look for the 'name' tag. With that,and using our WCS knowledge, we can request just the part of the data we need and acquire a GeoTIFF image. Let's break a WCS request down into parts we need:
-the path to the data: http://dapds00.nci.org.au/thredds/wcs/rr1/Elevation/NetCDF/1secSRTM_DEMs_v1.0/DEM/
-the dataset: Elevation_1secSRTM_DEMs_v1.0_DEM_Mosaic_dem1sv1_0.nc
-the service: service=WCS
-the service version: version=1.0.0
-the thing we want to do (get a coverage): request=GetCoverage
-the coverage (or layer) we want to get: Coverage=elevation
-the boundary of the layer we want: bbox=148.7,-35.8,149.5,-35.1
-the format we want to get our coverage as: format=GeoTIFF_Float
+
+- the path to the data: http://dapds00.nci.org.au/thredds/wcs/rr1/Elevation/NetCDF/1secSRTM\_DEMs\_v1.0/DEM/
+- the dataset: Elevation\_1secSRTM\_DEMs\_v1.0\_DEM\_Mosaic\_dem1sv1\_0.nc
+- the service: service=WCS
+- the service version: version=1.0.0
+- the thing we want to do (get a coverage): request=GetCoverage
+- the coverage (or layer) we want to get: Coverage=elevation
+- the boundary of the layer we want: bbox=148.7,-35.8,149.5,-35.1
+- the format we want to get our coverage as: format=GeoTIFF_Float
+
 To build a WCS request we concatenate the data path and dataset name, put a question mark after the dataset name, then add the rest of the labels describing the thing we want afterward, in any order, separated by ampersands:
-http://dapds00.nci.org.au/thredds/wcs/rr1/Elevation/NetCDF/1secSRTM_DEMs_v1.0/DEM/Elevation_1secSRTM_DEMs_v1.0_DEM_Mosaic_dem1sv1_0.nc?service=WCS&version=1.0.0&request=GetCoverage&Coverage=elevation&bbox=148.7,-35.8,149.5,-35.1&format=GeoTIFF_Float
+
+http://dapds00.nci.org.au/thredds/wcs/rr1/Elevation/NetCDF/1secSRTM\_DEMs\_v1.0/DEM/Elevation\_1secSRTM\_DEMs\_v1.0\_DEM\_Mosaic\_dem1sv1\_0.nc?service=WCS&version=1.0.0&request=GetCoverage&Coverage=elevation&bbox=148.7,-35.8,149.5,-35.1&format=GeoTIFF\_Float
+
 Enter this link into a web browser to obtain a GeoTIFF DEM in your default download location (check in 'downloads'). Rename it to something memorable if you wish, in your qgis_vis_files directory.
-Note the use of GeoTIFF_Float - using only GeoTIFF is possible, but gives you an image with pixel values scaled to a colour range, not a data range
+
+Note the use of GeoTIFF\_Float - using only GeoTIFF is possible, but gives you an image with pixel values scaled to a colour range, not a data range
+
 Now go to QGIS and import the GeoTIFF as a raster layer:
+
+**image**
+
+6. Acquire tree cover data from the file system
+Here we pull some data from a netCDF file straight from the NCI file system - but we don't want all of Australia - let's stick to our region of interest, and use NCO to grab the part we need. In a new terminal move to your qgis_vis_files directory and load the NetCDF Operators:
+$ module load nco/4.5.3
+...which we use to clip a region from the ANU WALD TreeCover dataset for 2015:
+$ ncks -v TreeCover -d latitude,-35.8,-35.1 -d longitude,148.7,149.5  /g/data1/ub8/au/treecover/ANUWALD.TreeCover.25m.2015.nc ./treecover_2015_-35.8-35.1_148.7_149.5.nc
+QGIS will panic if you attempt to load your new netCDF subset, because it misinterprets the order of latitude and longitude. A quick call to another NCO utility fixes that - here we swap the axis order in the TreeCover variable for our subset:
+$ ncpdq -v TreeCover -a latitude,longitude treecover_2015_-35.8-35.1_148.7_149.5.nc treecover_2015_-35.8-35.1_148.7_149.5.nc
+This results in a subset of the ANU WALD treecover dataset in our VDI desktop - which we can load into QGIS as a raster layer.
+
+**note box**
+You could just as easily load a complete NetCDF file from /g/data into QGIS - as long as the underlying file format meets defined netCDF conventions. Try adding this gravity map - it meets NetCDF-CF, and loads without any modification: /g/data/rr2/National_Coverages/onshore_Bouguer_offshore_Freeair_gravity_geodetic_June_2009/ onshore_Bouguer_offshore_Freeair_gravity_geodetic_June_2009.nc
+Here, we demonstrate a method of quickly viewing parts of your output data - even if they are not yet fully QC'ed and need a little massaging to get going.
+
