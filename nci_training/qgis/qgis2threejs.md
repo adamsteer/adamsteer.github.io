@@ -14,7 +14,7 @@
 
 We are going to make an interactive version of the map below, starting with data from three different sources merged using QGIS. We will also see some key differences between data access methods.
 
-![End result](./qgis.images/0-end.result.jpg "End result of this session")
+![End result](./qgis3js.images/0-end.result.jpg "End result of this session")
 
 #### The following material uses Geoscience Australia's Elevation Data Collection which is available under the Create Commons License 4.0 through NCI's THREDDS Data Server. For more information on the collection and licensing, please [click here](https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f9082_1236_9859_8989). Also used is ANU Water and Landscape Dynamics tree cover product, available under the Create Commons License 4.0 through NCI's THREDDS Data Server. For more information on the collection and licensing, please [click here](http://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1104_2906_7276_3004)
 
@@ -168,9 +168,9 @@ Note the use of GeoTIFF\_Float - using only GeoTIFF is possible, but gives you a
 
 Now go to QGIS and import the GeoTIFF as a raster layer:
 
-![Import WCS image to QGIS](./qgis.images/1-load.raster.jpg "Find and load WCS raster")
+![Import WCS image to QGIS](./qgis3js.images/1-load.raster.jpg "Find and load WCS raster")
 
-![Show WCS layer in QGIS](./qgis.images/2-view.raster.jpg "Show elevation map")
+![Show WCS layer in QGIS](./qgis3js.images/2-view.raster.jpg "Show elevation map")
 
 ## 6. Acquire tree cover data from the file system
 Here we pull some data from a netCDF file straight from the NCI file system - but we don't want all of Australia - let's stick to our region of interest, and use NCO to grab the part we need. In a new terminal move to your qgis_vis_files directory and load the NetCDF Operators:
@@ -213,7 +213,7 @@ We don't need to worry about the elevation data, but we do need a useful colour 
 - click 'classify' to show the palette in the big window, and apply with with 'apply'.
 - click 'close' to return to your map.
 
-![Style vegetation layer](./qgis.images/3-style.treecover.jpg "Style vegetation layer")
+![Style vegetation layer](./qgis3js.images/3-style.treecover.jpg "Style vegetation layer")
 
 <div class="alert alert-success">
 <h3>Extension:</h3>
@@ -259,7 +259,7 @@ http://actmapi.actgov.opendata.arcgis.com/datasets/eedcda7873934e789093b093521b0
 
 In QGIS, Click 'add new vector layer', select the 'protocol' radio button, and past the URL in.
 
-![Import GeoJSON layer](./qgis.images/4-vector.layer.jpg "Import GeoJSON layer")
+![Import GeoJSON layer](./qgis3js.images/4-vector.layer.jpg "Import GeoJSON layer")
 
 
 #### Making the data useful - reload as a local vector layer
@@ -267,7 +267,7 @@ In QGIS, Click 'add new vector layer', select the 'protocol' radio button, and p
 The layer will load - but like WCS raster data, it can't be used for analysis. Save it as a Geopackage and reload the layer (delete the GeoJSON layer). Again, your qgis\_vis\_files directory is a good place.
 
 
-![Save GeoJSON layer as geopackage](./qgis.images/5-geoJSON2shape.jpg "Save GeoJSON layer as geopackage")
+![Save GeoJSON layer as geopackage](./qgis3js.images/5-geoJSON2shape.jpg "Save GeoJSON layer as geopackage")
 
 <div class="alert alert-success">
 <h3>Extension:</h3>
@@ -302,7 +302,7 @@ Head to raster -> zonal stats to open the plugin.
 
 In the zonal statistics plugin dialogue, choose the DEM as the raster layer, and use band 1. Then choose your ACT blocks vector layer. In the statistics to calculate, pick an appropriate set - but include standard deviation - this is our roughness proxy. Add a meaningful prefix to the statistics (e.g. 'dem\_'), so you can find them when you need to use them.
 
-![Hillines using zonal statistics](./qgis.images/6-zonal.stats.jpg "Zonal stats example")
+![Hillines using zonal statistics](./qgis3js.images/6-zonal.stats.jpg "Zonal stats example")
 
 QGIS will spend some time calculating stats for each block, and add the output to the vector layer (act\_sections) as another attribute column.
 
@@ -316,9 +316,9 @@ We avoided styling our vector layer earlier, but now it's time - since we want t
 
 Double click your act\_sections layer to open it's properties dialogue, and head to the style tab. Here, we want to apply a good looking colour scale based on mean tree cover (the data we just generated). Set up as follows:
 
-![Styling vector sections](./qgis.images/7-style.vector.jpg "Section styling example")
+![Styling vector sections](./qgis3js.images/7-style.vector.jpg "Section styling example")
 
-![Styling vector sections](./qgis.images/8-style.vector.result.jpg "Section styling result")
+![Styling vector sections](./qgis3js.images/8-style.vector.result.jpg "Section styling result")
 
 **So far we can visualise the tree cover of sections in the ACT - but how can we relate that quickly and easily to section hillines? And how could we visualise results?**
 
@@ -347,7 +347,7 @@ So far we've worked in a WGS84 (EPSG:4326) coordinate system - but in order to r
 - Enter 'MGA 55' in the 'filter' box, then highlight GDA94 /MGA 55 in the 'coordinate systems of the world...' box. It should show up in the 'selected CRS' panel.
 - Click OK.
 
-![Set OTF CRS](./qgis.images/8-otf-crs.jpg "Set OTF transformation")
+![Set OTF CRS](./qgis3js.images/8-otf-crs.jpg "Set OTF transformation")
 
 You'll see that everything has warped a touch, and your CRS panel (lower right) reflects your choice. Proj.4 handles all the rest for you!
 
@@ -359,17 +359,17 @@ Qgis2threejs attempts to render the whole map window. We want to limit or map to
 
 Head to web -> Qgis2threejs to open the plugin dialogue. Click 'world' in the left pane, here we define basic parameters about the map we're creating. It's usually prettier to apply some vertical exaggeration in Australia, try between 1.5 and 3.
 
-![QGIS2threejs setup](./qgis.images/8-qgis2threejs.world.jpg "QGIS2threejs setup - world")
+![QGIS2threejs setup](./qgis3js.images/8-qgis2threejs.world.jpg "QGIS2threejs setup - world")
 
 Next click 'DEM'. Here you select the SRTM data you grabbed via WCS as the dem to build terrain. You can set an image to be draped on the DEM - map window view, a specific layer, an image or a plain colour. This example uses the DEM layer to colour the terrain map. Also turn shading on to get pretty hillshading.
 
-![Styling vector sections](./qgis.images/8-qgis2threejs.dem.jpg "Section styling example")
+![Styling vector sections](./qgis3js.images/8-qgis2threejs.dem.jpg "Section styling example")
 
 Finally check the radio button next to our ACT sections layer in the left panel. Here we set up some visualisation parameters for our vector layer (which contains the section-level treecover statistics we generated). Set the Z coordinate to'Absolute value', and enter 580 m. We're going to compare the heights of extruded polygons, so we should start them all in the same place!
 
 Keep the colour as 'feature style', set 'Transparency' to 20-30 and finally, choose a data source to detemine extruded polygon heights. We finally relate the hilliness of sections to tree cover here - choose **dem\_stdev**, and a multiplier (10 works well in this example).
 
-![Styling vector sections](./qgis.images/10-qgis2threejs.poly.jpg "Section styling example")
+![Styling vector sections](./qgis3js.images/10-qgis2threejs.poly.jpg "Section styling example")
 
 #### show the map!
 
@@ -377,7 +377,7 @@ We finally use our qgis_vis_map directory - browse to it at the 'output html fil
 
 If the map doesn't pop up right away navigate to the place you just stored the .html file, and open it in a browser.
 
-![End result](./qgis.images/0-end.result.jpg "End result of this session")
+![End result](./qgis3js.images/0-end.result.jpg "End result of this session")
 
 ## 12. So what do our results mean? Interpreting our picture
 
