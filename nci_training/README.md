@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # NCI training notes
 
 Training material developed and delivered for Australia's [National Computational Infrastructure](http://nci.org.au)
