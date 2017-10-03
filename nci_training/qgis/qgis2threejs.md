@@ -418,8 +418,8 @@ What are some other ways to share QGIS projects?
 One option is to use curl on the command line:</p>
 <p>
 <code>curl -o SRTM_dem_139_36.tiff 'http://dapds00.nci.org.au/thredds/wcs/ub8/au/FractCov/PV/FractCover.V3_0_1.2015.aust.005.PV.nc?service=WCS&version=1.0.0&Request=GetCoverage&Coverage=PV&bbox=149.0,-36,149.9,-35&format=GeoTIFF_Float'</code>
-<br/>
-
+</p>
+<p>
 <code>
 curl -o 2015_treecover_139_36.tiff 'http://dapds00.nci.org.au/thredds/wcs/ub8/au/FractCov/PV/FractCover.V3_0_1.2015.aust.005.PV.nc?service=WCS&version=1.0.0&Request=GetCoverage&Coverage=PV&bbox=149.0,-36,149.9,-35&format=GeoTIFF_Float'</code></p>
 
