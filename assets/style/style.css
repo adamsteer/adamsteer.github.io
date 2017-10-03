@@ -3,15 +3,23 @@
 
 @import "{{ site.theme }}";
 
+@media screen and (max-width: 992px) {
+    img {
+        max-width: 100%
+    }
+}
+
 @media screen and (max-width: 680px) {
     body {
         font-size: 14px
     }
+}
     
 @media screen and (max-width: 680px) {
     body {
         font-size: 14px
     }
+}
 
     code, pre {
         min-width: 240px;
