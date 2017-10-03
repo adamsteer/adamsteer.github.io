@@ -234,12 +234,11 @@ How could you automagically save WCS data with sane, memorable names?</p>
 <li>OWS layers can't be used for processing - ie band math, and the visualisation tools we're about to use.</li>
 </ol>
 <p>
-If you're keen, do some exploring - we don't know *everything* about QGIS - surprise us!</p>
+If you're keen, do some exploring - we don't know <b>everything</b> about QGIS - surprise us!</p>
 <p>
 <b>Why not get these data from the filesystem?</b></p>
 <p>
 Great question! The main reason is that we're demonstrating QGIS as a way to fuse data from manifold sources. Over today and tomorrow you'll see a log examples of how to collect data from the filesystem in manageable chunks - which you could then analyse/visualise using the methods shown here. Demonstrating web coverage services on the VDI shows how you can pull data from many external sources to help interpret your work.</p>
-
 </div>
 
 ## 8. Find a cadastral data service and import it into QGIS
