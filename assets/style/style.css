@@ -3,7 +3,18 @@
 
 @import "{{ site.theme }}";
 
-.inner {
-    min-width: 320px;
-    max-width: 680px
+@media screen and (max-width: 680px) {
+    body {
+        font-size: 14px
+    }
+    
+@media screen and (max-width: 680px) {
+    body {
+        font-size: 14px
+    }
+
+    code, pre {
+        min-width: 240px;
+        max-width: 680px;
+        font-size: 11px
     }
