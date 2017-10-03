@@ -126,15 +126,21 @@ Shuttle Radar Topography Mission (SRTM) data are a good source of reasonably det
 
 We can head to the NCI Elevation collection here:
 
+```
 http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/catalog.html
+```
 
 ...and look for SRTM 1 second elevation as NetCDF. Browse to the NetCDF folder, click through to:
 
+```
 http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/1secSRTM\_DEMs\_v1.0/DEM/catalog.html
+```
 
 A bunch of 1 degree tiles are shown here - but we will collect a region we want from the national mosaic:
 
+```
 http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/1secSRTM\_DEMs\_v1.0/DEM/catalog.html?dataset=rr1/Elevation/NetCDF/1secSRTM\_DEMs\_v1.0/DEM/Elevation\_1secSRTM\_DEMs\_v1.0\_DEM\_Mosaic\_dem1sv1\_0.nc
+```
 
 Click on the 'WCS' link to see the WCS getCapabilities statement - which describes the data you can obtain here. We need to know the name for the coverage we need - look for the 'name' tag. With that,and using our WCS knowledge, we can request just the part of the data we need and acquire a GeoTIFF image. Let's break a WCS request down into parts we need:
 
@@ -224,11 +230,15 @@ Great question! The main reason is that we're demonstrating QGIS as a way to fus
 
 ACT publish a lot of spatial data on their ACTMAPi interface. To shortcut, here are the cadastral section data:
 
+```
 http://actmapi.actgov.opendata.arcgis.com/datasets/eedcda7873934e789093b093521b0299\_3
+```
 
 You can download a shapefile and import it to QGIS, but let's show a feature you might like to use: adding vector data as a service. At ACTMAPi, click the 'API' menu box, and copy the URL out of the GeoJSON tetxtbox:
 
+```
 http://actmapi.actgov.opendata.arcgis.com/datasets/eedcda7873934e789093b093521b0299\_3.geojson
+```
 
 In QGIS, Click 'add new vector layer', select the 'protocol' radio button, and past the URL in.
 
@@ -348,22 +358,27 @@ If hilly blocks have generally more tree cover than flatter blocks, short column
 
 ...but that's not necesarily what we see! Why not?
 
-**green block**
-Extension activities
+<div class="alert alert-success">
+<h3>Extension activities</h3>
 
 - Which suburbs have the most trees? which is the hilliest? hint - use another QGIS plugin, and another web mapping data source - and see the example in section 13
 - Create a totally new interactive 3D model using the stack we've just been working with, and give us a URL to see your work!
 - Visualise the same result a different way - do we really need qgis2threejs?
+</div>
 
 ## 13. Sharing our new map
 The map you just created using QGIS2threeJS can be dropped into any web server - to share with collaborators.
 You can't serve data directly from the VDI - but you can copy your qgis\_vis\_map folder to some web host (e.g. github.io) and share with the world. Here's an example:
 
+```
 https://adamsteer.github.io/nci\_samples/qgis2threejs/treecover.html
+```
 
 Here's another example with an OpenStreetMap layer rendered on the DEM:
 
+```
 https://adamsteer.github.io/nci\_samples/qgis2threejs/treecover-osm.html
+```
 
 What are some other ways to share QGIS projects?
 
