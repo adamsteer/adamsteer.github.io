@@ -1,0 +1,9 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.inner {
+    min-width: 320px;
+    max-width: 680px
+    }
