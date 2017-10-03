@@ -221,14 +221,14 @@ We don't need to worry about the elevation data, but we do need a useful colour 
 Steaming ahead? Add a graticule to your QGIS map layer...</p>
 <p>
 How could you automagically save WCS data with sane, memorable names?</p>
-
 </div>
 
 <div class="alert alert-info">
+
 <h3>Q & A</h3>
 <p>
 <b>Why not just use the  QGIS OWS browser to grab these data?</b></p>
-<p>
+
 <ol>
 <li>The QGIS WCS browser and THREDDS don't play well - QGIS attenuates the full THREDDS WCS URL, so it is far more convenient to form a request independently of QGIS.</li>
 <li>OWS layers can't be used for processing - ie band math, and the visualisation tools we're about to use.</li>
@@ -239,6 +239,7 @@ If you're keen, do some exploring - we don't know *everything* about QGIS - surp
 <b>Why not get these data from the filesystem?</b></p>
 <p>
 Great question! The main reason is that we're demonstrating QGIS as a way to fuse data from manifold sources. Over today and tomorrow you'll see a log examples of how to collect data from the filesystem in manageable chunks - which you could then analyse/visualise using the methods shown here. Demonstrating web coverage services on the VDI shows how you can pull data from many external sources to help interpret your work.</p>
+
 </div>
 
 ## 8. Find a cadastral data service and import it into QGIS
