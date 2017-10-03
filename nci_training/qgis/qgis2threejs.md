@@ -63,17 +63,23 @@ We use an SRTM elevation mosaic, held in Geoscience Australia's elevation refere
 
 THREDDS
 
-```http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html```
+```
+http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html
+```
 
 Geonetwork
 
-```https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f9082_1236_9859_8989```
+```
+https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f9082_1236_9859_8989
+```
 
 Licensed under Creative Commons (CCBY4): http://dapds00.nci.org.au/thredds/fileServer/licenses/rr1\_licence.pdf
 
 The path to the data on your VDI desktop is:
 
-```/g/data1/rr1/Elevation/NetCDF/```
+```
+/g/data1/rr1/Elevation/NetCDF/
+```
 
 As a demonstration, we will acquire these data using a Web Coverage Service (WCS).
 
@@ -84,15 +90,21 @@ These data come from the ANU Water and Landscape Dynamics collection:
 
 THREDDS
 
-```http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html```
+```
+http://dapds00.nci.org.au/thredds/catalog/rr1/Elevation/NetCDF/catalog.html
+```
 
 Geonetwork
 
-```http://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1104_2906_7276_3004```
+```
+http://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1104_2906_7276_3004
+```
 
 The path to the data on your VDI desktop is:
 
-```/g/data1/ub8/Elevation/NetCDF/```
+```
+/g/data1/ub8/Elevation/NetCDF/
+```
 
 ## 4. Start QGIS on the VDI
 
@@ -151,22 +163,30 @@ Now go to QGIS and import the GeoTIFF as a raster layer:
 ## 6. Acquire tree cover data from the file system
 Here we pull some data from a netCDF file straight from the NCI file system - but we don't want all of Australia - let's stick to our region of interest, and use NCO to grab the part we need. In a new terminal move to your qgis_vis_files directory and load the NetCDF Operators:
 
-```$ module load nco/4.5.3```
+```
+$ module load nco/4.5.3
+```
 
 ...which we use to clip a region from the ANU WALD TreeCover dataset for 2015:
 
-```$ ncks -v TreeCover -d latitude,-35.8,-35.1 -d longitude,148.7,149.5  /g/data1/ub8/au/treecover/ANUWALD.TreeCover.25m.2015.nc ./treecover_2015_-35.8-35.1_148.7_149.5.nc```
+```
+$ ncks -v TreeCover -d latitude,-35.8,-35.1 -d longitude,148.7,149.5  /g/data1/ub8/au/treecover/ANUWALD.TreeCover.25m.2015.nc ./treecover_2015_-35.8-35.1_148.7_149.5.nc
+```
 
 QGIS will panic if you attempt to load your new netCDF subset, because it misinterprets the order of latitude and longitude. A quick call to another NCO utility fixes that - here we swap the axis order in the TreeCover variable for our subset:
 
-```$ ncpdq -v TreeCover -a latitude,longitude treecover_2015_-35.8-35.1_148.7_149.5.nc treecover_2015_-35.8-35.1_148.7_149.5.nc```
+```
+$ ncpdq -v TreeCover -a latitude,longitude treecover_2015_-35.8-35.1_148.7_149.5.nc treecover_2015_-35.8-35.1_148.7_149.5.nc
+```
 
 This results in a subset of the ANU WALD treecover dataset in our VDI desktop - which we can load into QGIS as a raster layer.
 
 **note box**
 You could just as easily load a complete NetCDF file from /g/data into QGIS - as long as the underlying file format meets defined netCDF conventions. Try adding this gravity map - it meets NetCDF-CF, and loads without any modification: 
 
-```/g/data/rr2/National\_Coverages/onshore\_Bouguer\_offshore\_Freeair\_gravity\_geodetic\_June\_2009/ onshore\_Bouguer\_offshore\_Freeair\_gravity\_geodetic\_June\_2009.nc```
+```
+/g/data/rr2/National\_Coverages/onshore\_Bouguer\_offshore\_Freeair\_gravity\_geodetic\_June\_2009/ onshore\_Bouguer\_offshore\_Freeair\_gravity\_geodetic\_June\_2009.nc
+```
 
 Here, we demonstrate a method of quickly viewing parts of your output data - even if they are not yet fully QC'ed and need a little massaging to get going.
 
@@ -281,10 +301,104 @@ So far we've imported three different datasets into QGIS and created some new at
 In this scheme, if hillier blocks have more trees, dark blue blocks will visualise as taller columns. If hiller blocks are less vegetated, light green blocks will visualise as taller columns. Lets test it out!
 
 Here we use the second plugin - Qgis2threejs. This renders the current screen to a WebGL map in a .html page using three.js - with some neat data visualisation features. You can open the result as an interactive map in a web browser.
-a. Setting up - coordinate transformation in QGIS
+
+#### Setting up - coordinate transformation in QGIS
 So far we've worked in a WGS84 (EPSG:4326) coordinate system - but in order to render our map in three.js, we need to project our data into something which has units of metres, not degrees. Let's choose GDA94/MGA55 (EPSG:28355):
-Locate the panel at the lower right of the QGIS window which says 'EPSG:4326'
-Click it to open a CRS selection dialog
-Select 'Enable 'on the fly' CRS transformation (OTF)' at the top right
-Enter 'MGA 55' in the 'filter' box, then highlight GDA94 /MGA 55 in the 'coordinate systems of the world...' box. It should show up in the 'selected CRS' panel.
-Click OK.
+
+- Locate the panel at the lower right of the QGIS window which says 'EPSG:4326'
+- Click it to open a CRS selection dialog
+- Select 'Enable 'on the fly' CRS transformation (OTF)' at the top right
+- Enter 'MGA 55' in the 'filter' box, then highlight GDA94 /MGA 55 in the 'coordinate systems of the world...' box. It should show up in the 'selected CRS' panel.
+- Click OK.
+
+**image**
+
+You'll see that everything has warped a touch, and your CRS panel (lower right) reflects your choice. Proj.4 handles all the rest for you!
+
+#### Set a clipping frame
+
+Qgis2threejs attempts to render the whole map window. We want to limit or map to the extents of our DEM - so we can either zoom the map window in so that our region of interest occupies the whole window, or set a clipping polygon in a new vector layer. Here, we zoom in so that our region of interest fills the map window.
+
+#### Setting up in Qgis2threejs
+
+Head to web -> Qgis2threejs to open the plugin dialogue. Click 'world' in the left pane, here we define basic parameters about the map we're creating. It's usually prettier to apply some vertical exaggeration in Australia, try between 1.5 and 3.
+
+**image**
+
+Next click 'DEM'. Here you select the SRTM data you grabbed via WCS as the dem to build terrain. You can set an image to be draped on the DEM - map window view, a specific layer, an image or a plain colour. This example uses the DEM layer to colour the terrain map. Also turn shading on to get pretty hillshading.
+
+**image**
+
+Finally check the radio button next to our ACT sections layer in the left panel. Here we set up some visualisation parameters for our vector layer (which contains the section-level treecover statistics we generated). Set the Z coordinate to'Absolute value', and enter 580 m. We're going to compare the heights of extruded polygons, so we should start them all in the same place!
+
+Keep the colour as 'feature style', set 'Transparency' to 20-30 and finally, choose a data source to detemine extruded polygon heights. We finally relate the hilliness of sections to tree cover here - choose **dem\_stdev**, and a multiplier (10 works well in this example).
+
+**image**
+
+#### show the map!
+
+We finally use our qgis_vis_map directory - browse to it at the 'output html file path' box and use a memorable name to save your output html file. Then click run. All being well firefox will open and display an interactive map like the one below! See section 13 for links to prebuilt versions hosted at github.io.
+
+If the map doesn't pop up right away navigate to the place you just stored the .html file, and open it in a browser.
+
+
+## 12. So what do our results mean? Interpreting our picture
+
+If hilly blocks have generally more tree cover than flatter blocks, short columns should be lighter shades of blue (in this colour scheme).
+
+...but that's not necesarily what we see! Why not?
+
+**green block**
+Extension activities
+
+- Which suburbs have the most trees? which is the hilliest? hint - use another QGIS plugin, and another web mapping data source - and see the example in section 13
+- Create a totally new interactive 3D model using the stack we've just been working with, and give us a URL to see your work!
+- Visualise the same result a different way - do we really need qgis2threejs?
+
+## 13. Sharing our new map
+The map you just created using QGIS2threeJS can be dropped into any web server - to share with collaborators.
+You can't serve data directly from the VDI - but you can copy your qgis\_vis\_map folder to some web host (e.g. github.io) and share with the world. Here's an example:
+
+https://adamsteer.github.io/nci\_samples/qgis2threejs/treecover.html
+
+Here's another example with an OpenStreetMap layer rendered on the DEM:
+
+https://adamsteer.github.io/nci\_samples/qgis2threejs/treecover-osm.html
+
+What are some other ways to share QGIS projects?
+
+**green box**
+
+### Possible solutions to questions
+
+#### Sane WCS coverage request names
+One option is to use curl on the command line:
+curl -o SRTM_dem_139_36.tiff 'http://dapds00.nci.org.au/thredds/wcs/ub8/au/FractCov/PV/FractCover.V3_0_1.2015.aust.005.PV.nc?service=WCS&version=1.0.0&Request=GetCoverage&Coverage=PV&bbox=149.0,-36,149.9,-35&format=GeoTIFF_Float' 
+
+curl -o 2015_treecover_139_36.tiff 'http://dapds00.nci.org.au/thredds/wcs/ub8/au/FractCov/PV/FractCover.V3_0_1.2015.aust.005.PV.nc?service=WCS&version=1.0.0&Request=GetCoverage&Coverage=PV&bbox=149.0,-36,149.9,-35&format=GeoTIFF_Float'
+...are there others? What was yours?
+
+#### Zonal statistics right in a notebook
+You could also try rasterstats: https://github.com/perrygeo/python-rasterstats - any other suggestions?
+
+#### Other ways to share your QGIS projects, and other 3D visualisers
+For simple projects with CCBY4 data, the QGIS cloud is one way of sharing your results. Another is a Jupyter notebook hosted on github as a gist, a notebook, or as a github.io page. What was your approach?
+
+**orange box**
+### Further reading
+
+Here is a great tutorial on netCDF and QGIS: http://www.ggiuliani.ch/download/netcdf_qgis_GG.pdf - covering a lot more than we did here, and useful for working with data directly on the VDI filesystem.
+
+Also, inspect the result of your work - what is Three.js doing? What can you apply from this example to other work? The Qgis2threejs plugin can only add so much - how could you render additional datasets in the same map?
+
+## Summary
+
+Here we:
+- Used a graphical GIS available on the VDI
+- Used OGC web services available at NCI
+- Demonstrated pulling data from external web services
+- Demonstrated shaping data in the filesystem for merging with web service data
+- Used these data to perform a basic analysis
+- Learned one method of visualising and sharing results
+
+Thanks! Discussion and suggestions welcome.
