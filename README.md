@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # adamsteer.github.io
 
 - [Talks](./talks)
