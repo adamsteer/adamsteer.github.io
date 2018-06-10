@@ -4,13 +4,19 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>3</title>
+		<title>POLAR2018</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/moon.css">
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+        
+        <style>
+        .reveal h1 { font-size: 2em; }
+        .reveal h2 { font-size: 1.5em; }
+        .reveal p { font-size: 0.8em; }
+        </style>
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -26,43 +32,68 @@
 			<div class="slides">
                 <section>
                     <section>
-                        <h1>Exploiting airborne imagery for sea ice stuff</h1>
-
-                        <h4>
-                        Adam Steer<sup><small>1</small></sup> :: Petra Heil<sup><small>1</small></sup> :: Jan Lieser<sup><small>2</small></sup> :: Rob Massom<sup><small>1</small></sup>
-                        </h4>
+                        <h2> Exploiting Digital Imagery for Snow Surface Retrieval on Sea Ice</h2>
 
                         <p>
-                        [1] Antarctic Climate and Ecosystems Cooperative Research Centre :: [2] Gateway Antarctica, Institute of Marine and Antarctic Science
+                        Adam Steer<sup><small>1</small></sup> :: Petra Heil<sup><small>1</small></sup> :: Jan Lieser<sup><small>2</small></sup> :: Rob Massom<sup><small>1</small></sup>
                         </p>
+
+                        <p><small>
+                        [1] Antarctic Climate and Ecosystems Cooperative Research Centre :: [2] Gateway Antarctica, Institute of Marine and Antarctic Science
+                        </small></p>
                     </section>
                     <section>
                         <h4>A brief history of sea ice aerial photography from Australian programs</h4>
-                        <ul>
-                            <li><b>pre-2007:</b> acquire minimal overlap, trying to make as few repeat observations as possible. Focus on floe size.</li>
-                            <li><b>2007-2008:</b> change of plan - shoot as fast as possible! Still looking for ice floes, starting to work on other characteristics: classifying ice types, tinkering with 3D reconstruction</li>
-                            <li><b>2009-2012:</b> bigger camera, more pixels, more colour depth. Currently a dataset needing an analyst or ten! Subject of this talk</li>
-                            <li><b>2012+</b> experimenting with remotely piloted airborne systems</li>
-                        </ul>
+                    </section>
+                    <section>
+                        <b>pre-2007:</b> acquire minimal overlap, trying to make as few repeat observations as possible. Focus on floe size.
+                    </section>
+                    <section>
+                        <b>2007-2008:</b> change of plan - shoot as fast as possible! Still looking for ice floes, starting to work on other characteristics: classifying ice types, tinkering with 3D reconstruction
+                    </section>
+                    <section>
+                        <b>2009-2012:</b> bigger camera, more pixels, more colour depth. Currently a dataset needing an analyst or ten! Subject of this talk
+                    </section>
+                    <section>
+                        <b>2012+</b> experimenting with remotely piloted airborne systems
+                    </section>
+                    <section>
+                        <p>Here we focus on imagery collected in 2012 on the SIPEX II voyage, from a big drone.</p>
+
+                        <p>RAPPLS pic to go here</p>
                     </section>
                 </section>
                 <section>
                     <section>
                         <h1>Topography from imagery</h1>
-
+                        <p>
+                        
+                        </p>
                     </section>
                     <section>
                         <h1>Snow depth from topography</h1>
+                        <p>
+                        
+                        </p> 
+
                     </section>
                     <section>
                         <h1>Sructures in snow topography</h1>
                     </section>
                 </section>
                 <section>
-                        <section>
-                                <h1></h1>
-                        </section>
+                    <section>
+                        <h1>snow types from imagery</h1>
+                    </section>
+                    <section>
+                        <h1>Object based image analysis</h1>
+                    </section>
                 </section>
+                <section>
+                        <section>
+                            <h1>Problems to solve</h1>
+                        </section>
+                    </section>
                 <section>
                         <section>
                                 <h1>Bibliography</h1>
@@ -70,6 +101,7 @@
                                 Steer et al 2008
                                 Worby et al 2008
                                 Hutchings et al 2012
+                                Oszoy-Cicek et al 2013
                                 Steer 2016 (PhD thesis)
                         </section>
                 </section>
@@ -84,6 +116,18 @@
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
+
+                history: true,
+                slideNumber: true,
+                // Parallax background image
+                parallaxBackgroundImage: './images/DSC0251.jpg',
+    // Parallax background size
+                parallaxBackgroundSize: '3098px 1745px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+    // Number of pixels to move the parallax background per slide
+    // - Calculated automatically unless specified
+    // - Set to 0 to disable movement along an axis
+                parallaxBackgroundHorizontal: 200,
+                parallaxBackgroundVertical: 70,
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
