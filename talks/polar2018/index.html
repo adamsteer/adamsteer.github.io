@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>3</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                    <section>
+                        <h1>Exploiting airborne imagery for sea ice stuff</h1>
+
+                        <h4>
+                        Adam Steer<sup><small>1</small></sup> :: Petra Heil<sup><small>1</small></sup> :: Jan Lieser<sup><small>2</small></sup> :: Rob Massom<sup><small>1</small></sup>
+                        </h4>
+
+                        <p>
+                        [1] Antarctic Climate and Ecosystems Cooperative Research Centre :: [2] Gateway Antarctica, Institute of Marine and Antarctic Science
+                        </p>
+                    </section>
+                    <section>
+                        <h4>A brief history of sea ice aerial photography from Australian programs</h4>
+                        <ul>
+                            <li><b>pre-2007:</b> acquire minimal overlap, trying to make as few repeat observations as possible. Focus on floe size.</li>
+                            <li><b>2007-2008:</b> change of plan - shoot as fast as possible! Still looking for ice floes, starting to work on other characteristics: classifying ice types, tinkering with 3D reconstruction</li>
+                            <li><b>2009-2012:</b> bigger camera, more pixels, more colour depth. Currently a dataset needing an analyst or ten! Subject of this talk</li>
+                            <li><b>2012+</b> experimenting with remotely piloted airborne systems</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>Topography from imagery</h1>
+
+                    </section>
+                    <section>
+                        <h1>Snow depth from topography</h1>
+                    </section>
+                    <section>
+                        <h1>Sructures in snow topography</h1>
+                    </section>
+                </section>
+                <section>
+                        <section>
+                                <h1></h1>
+                        </section>
+                </section>
+                <section>
+                        <section>
+                                <h1>Bibliography</h1>
+                                Paget et al 2005
+                                Steer et al 2008
+                                Worby et al 2008
+                                Hutchings et al 2012
+                                Steer 2016 (PhD thesis)
+                        </section>
+                </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
