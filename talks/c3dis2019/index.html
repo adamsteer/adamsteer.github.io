@@ -8,7 +8,16 @@
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/simple.css">
-
+        <style>
+        .full {
+            height:100%;
+            width:100%;
+            }
+        .bottom {
+            bottom:0px;
+            position:absolute;
+            }
+        </style>
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
@@ -29,16 +38,26 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-                    <section><h1>OSGeo Oceania</h1></section>
-                    <section>this is meant to show a map...<div id="mapid" class="map"></div></section>
+                    <section data-background-iframe="map.html" data-background-interactive><h1>OSGeo Oceania</h1></section>
+                    <section data-background-iframe="map.html?lat=-42.4&lng=168&zoom=8" data-background-interactive>this is meant to show a map...<div id="mapid" class="map"></div></section>
                 </section>
-				<section>
-                    <section><h2>OSGeo</h2><section>
-                    <section><h2>The organisation</h2><section>
-                    <section>
+				<section data-background-iframe="map.html" data-background-interactive>
+                    <section data-background-iframe="map.html" data-background-interactive><h2>OSGeo</h2></section>
+                    <section data-background-iframe="map.html" data-background-interactive><h2>The organisation</h2></section>
+                    <section data-background-iframe="map.html" data-background-interactive>
                     <h2>Ecosystems</h2>
-                    http://pathfinder.terrasigna.com/oss/
+
+                    </section>
+
+                    <section data-background-iframe="oss.html" data-background-interactive>
+
+                    <p class="bottom" style="font-size:12px">Node graph realised by Codrina Ilie, codrina.ilie@terrasigna.com and Vasile Crăciunescu, vasile.craciunescu@terrasigna.com</p>
+                    </section>
+                    <section data-background-iframe="map.html" data-background-interactive>
+
+                    </section>
                     <section>
+                    </section>
                 </section>
                 <section>
                     <section><h2>OSMF</h2><section>
