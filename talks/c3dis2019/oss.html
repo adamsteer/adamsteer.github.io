@@ -7,6 +7,11 @@
       stroke: #ccc;
     }
 
+    .graph{
+        width: "120%";
+        height:"100%";
+    }
+
     .node text {
       pointer-events: none;
       font: 14px sans-serif;
@@ -21,12 +26,10 @@
   <script src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
-  <div style="float: right;">
-    <table id="tabel" class="display" style="width: 400px;"></table>
-  </div>
-  <div id="graph"></div>
+
+  <div class="graph"></div>
   <script>
-    var width = 1200,
+    var width = 1800,
     height = 1000
 
     var svg = d3.select("#graph").append("svg")

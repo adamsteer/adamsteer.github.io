@@ -25,7 +25,7 @@ var map = new L.Map('map', {
   minZoom: 4,
   maxZoom: 12,
   zoom: params.zoom || 6,
-  layers: activeLayers || [layers.basemap]
+  layers: activeLayers || layers.basemap,
 });
 
 

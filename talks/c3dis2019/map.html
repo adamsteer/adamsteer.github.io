@@ -6,7 +6,7 @@
 
     <style>
          #mapid {
-            height: 600px;
+            height: 1200px;
         }
         #topContent {
             padding: 20px;
@@ -15,44 +15,20 @@
 
 </head>
 <body>
-   <div class="container-fluid">
-        <div id="map"></div>
- </div>
+    <div class="container-fluid">
+        <div id="mapid" class="row"></div>
+    </div>
     <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"></script>
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
 
     <script>
+	var map = L.map('mapid').setView([-35.30691, 149.1746619], 11);
 
-
-	var layers = {
-	'basemap': L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+	L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
 		maxZoom: 18,
 		attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL'
-	})
-    }
+	}).addTo(map);
 
-    // Get url parameters
-    var params = {};
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
-      params[key] = value;
-    });
-
-    if (params.layers) {
-      var activeLayers = params.layers.split(',').map(function(item) { // map function not supported in IE < 9
-        return layers[item];
-      });
-    }
-
-    var map = new L.Map('map', {
-      center: [params.lat || -41.2728, params.lng || 173.2996],
-      minZoom: 4,
-      maxZoom: 19,
-      zoom: params.zoom || 10,
-      layers: activeLayers || [layers.basemap]
-    });
-L.control.layers({}, layers).addTo(map);
     </script>
-
-
  </body>
  </html>
