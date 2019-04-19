@@ -6,12 +6,6 @@
     .link {
       stroke: #ccc;
     }
-
-    .graph{
-        width: "120%";
-        height:"100%";
-    }
-
     .node text {
       pointer-events: none;
       font: 14px sans-serif;
@@ -27,9 +21,9 @@
 </head>
 <body>
 
-  <div class="graph"></div>
-  <script>
-    var width = 1800,
+<div class="graph" style="float: center;"></div>
+<script>
+    var width = 1200,
     height = 1000
 
     var svg = d3.select("#graph").append("svg")
@@ -111,17 +105,6 @@
 
 
   });
-  $("#0").css({ 'fill': 'red' });
-
-  $.getJSON("oo.json", function(foss4gApps) {
-
-
-  jsonData = JSON.parse(JSON.stringify(foss4gApps['nodes']));
-
-  });
-
-
-
 </script>
 </body>
 </html>
