@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"/>
+
+    <style>
+         #mapid {
+            height: 1200px;
+        }
+        #topContent {
+            padding: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div id="mapid" class="row"></div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+    <script>
+	var map = L.map('mapid').setView([-45, 159], 4);
+
+	L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+		maxZoom: 18,
+		attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL'
+	}).addTo(map);
+
+    </script>
+ </body>
+ </html>
