@@ -1,0 +1,409 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Exploiting PDAL and Entwine in the wild</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                    <h2 style="color: #222222">Exploiting PDAL and Entwine in the wild</h2>
+                    <p style="font-size: 0.6em">
+                    Dr Adam Steer<br />
+                    http://spatialised.net<br />
+                    @adamdsteer</p>
+
+
+                    <div style="position: absolute; top: 50px; left: -5%; float:left; width:50%; margin:40px; text-align:left">
+                        <a href="https://pdal.io"><img  style="border: none; box-shadow: none; padding-top: 20px; padding-bottom: 20px; background-color: #ffffff" src="./images/vertical_purple.png"></a>
+                    </div>
+                </section>
+                <section data-background="./images/pdalinthewild.jpg">
+                    <div style="position: absolute; top: 50px; left: -5%; float:left; width:50%; margin:40px; text-align:left">
+                        <a href="https://pdal.io"><img  style="border: none; box-shadow: none; padding-top: 20px; padding-bottom: 20px; background-color: #ffffff" src="./images/pdal-logo.png"></a>
+                        <a href="https://entwine.io"><img  style="border: none; box-shadow: none; padding: 10px; background-color: #ffffff" src="./images/entwine-logo.png"></a>
+                    </div>
+                    <aside class="notes">
+                    PDAL is the Point Data Abstraction Library, Entwine is a point data indexing tool which generates Entwine Point Tiles.
+                    </aside>
+                </section>
+                <section>
+                    <section>
+                        <h2>Who am I?</h2>
+                        <span style="text-size: 0.6em">
+                        <p class="fragment">Independent geospatial consultant at <a href="http://spatialised.net">spatialised.net</a></p>
+                        <p class="fragment">Organising committee for FOSS4G SotM Oceania 2018 and 2019</p>
+                        <p class="fragment">OSGeo charter member, marketing committee, OGC representative</p>
+                        <p class="fragment">Field scientist turned data wrangler</p>
+                        <p class="fragment">Doctor of mischiefology</p>
+                    </span>
+                        <aside class="notes">
+                        Which hats do I wear, in the world and in this community?
+                        </aside>
+                    </section>
+
+                    <section data-background="./images/helo_model-2.png">
+                        <aside class="notes">
+                        My background is in geomatics - using helicopter borne lidar and imagery
+                        </aside>
+                    </section>
+
+                    <section data-background="./images/icy-areas.jpg">
+                        <aside class="notes">
+                        To do fundamental earth systems research on this stuff
+                        </aside>
+                    </section>
+
+                    <section data-background-iframe="http://spatialised.net/seaice/is6.html">
+                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                        <p style="font-size: 0.4em; color: #eeeeee">Sea ice elevation and draft modelled with photogrammetry and upward looking sonar. Interact with me!</p>
+                        </div>
+                        <aside class="notes">
+                        ...focussing on sea ice elevation and then thickness.
+                        </aside>
+                    </section>
+
+                    <section data-background="./images/pointwps.jpg">
+                        <div style="position: fixed;  bottom: 0px; left: 50px; text-align:bottom">
+                        <p style="font-size: 0.4em; color: #444444; background-color: #ffffff; padding: 2px"><a href="https://github.com/adamsteer/pointWPS">https://github.com/adamsteer/pointWPS</a></p>
+                        </div>
+                        <aside class="notes">
+                        More recently I worked on data services and management, prototyping a PDAL + PyWPS based service for on-demand products straight from las tiles on a disk - which evolved between 2016 and 17, presented at FOSS4G 2017.
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>What do I do now with PDAL and Entwine?</h2>
+                    </section>
+                    <section>
+                        <p>Analysis</p>
+                        <p class="fragment">Processing</p>
+                    </section>
+                    <section data-background="./images/flatwhites.jpg" data-background-height="90%">
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>PDAL and Entwine in Hydrography</h2>
+                    </section>
+                    <section>
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">def xyzcoverage(inputfile):
+    """
+    Provide a file name with extension:
+    - xyz
+    ...extract a tight polygon around the XY points in the file
+    and return a GeoJSON polygon
+    """
+    pipeline = {
+        "pipeline": [
+            {
+                "type": "readers.text",
+                "header": "X\tY\tZ\tFlightllineID\tIntensity",
+                "spatialreference": "EPSG:4326",
+                "filename": inputfile
+            },
+            {
+                "type": "filters.hexbin",
+                "threshold": 1
+            }
+        ]
+    }
+</span></pre>
+                        <aside class="notes">
+                            notes
+                        </aside>
+                    </section>
+                    <section>
+                    <p style="font-size: 0.8em"><a href="https://github/frontiersi/qa4mbes-data-pipeline/blob/master/notebooks/">https://github/frontiersi/qa4mbes-data-pipeline/blob/master/notebooks/</a>
+                    </section>
+                <section data-background="./images/mh370map.png">
+                </section>
+                <section>
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">{
+  "pipeline":[
+    {
+        "type" : "readers.text",
+        "filename" : "inputfile.txt",
+        "separator" : ",",
+        "header" : "X,Y,Z",
+        "skip": 1
+    },
+    {
+        "type" : "filters.reprojection",
+        "in_srs":"EPSG:4326",
+        "out_srs":"EPSG:3577"
+    },
+    {
+        "type": "filters.ferry",
+        "dimensions": "=>Classification, =>PointSourceId"
+    },
+    {
+        "type": "filters.assign",
+        "assignment": "PointSourceId[:]=1, Classification[:]=2"
+    },
+    {
+        "type": "filters.outlier"
+    },
+    {
+        "type":"filters.transformation",
+        "matrix": "1 0 0 0 0 1 0 0 0 0 -1 0 0 0 0 1"
+    },
+    {
+        "type":"filters.colorinterp",
+        "minimum" : -8100,
+        "maximum" : 0,
+        "ramp" : "blue_hue",
+        "dimension":"Z"
+    },
+    {
+      "type":"writers.las",
+      "filename":"outfile.laz",
+      "minor_version": 4,
+      "a_srs": "EPSG:3577"
+    }
+  ]
+}</span></pre>
+                    </section>
+                    <section>
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">#!/bin/bash
+
+path=$1
+table=$2
+
+echo $table
+
+for filename in $path/*.laz; do
+
+    echo $filename
+    thefile=$(basename $filename .laz)
+    echo $thefile
+    bounds=$(pdal info --boundary $filename | jq '.boundary.boundary')
+    bounds=$(echo $bounds | tr -d \")
+    pointcount=$(pdal info --metadata $filename | jq '.metadata.count' )
+    echo $pointcount
+    thedepth=$(pdal info --stats $filename | jq '.stats.statistic[2].average' )
+    echo $thedepth
+    #allthejson=$(pdal info --summary $filename )
+
+    psql -U adam -h localhost -p 5432 -d bathymetryindex -c \
+    "insert into $table (filename, boundingbox, npoints, meandepth )
+    values ('$thefile', ST_GeomFromText('$bounds'), $pointcount, $thedepth);"
+
+done</span></pre>
+                    </section>
+                    <section data-background="./images/mh370map.png">
+                    </section>
+                    <section data-background-iframe="http://spatialised.net/pointclouds/data/mh370.html">
+                    <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                    <p style="font-size: 0.4em; color: #eeeeee">Indian ocean sea floor data collected during MH370 search phase 1 and 2. Interact with me!</p>
+                    </div>
+                    </section>
+                    <section>
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">{
+"pipeline": [
+{
+   "type": "readers.ept",
+   "filename": "http://act-2015-rgb.s3.amazonaws.com/",
+   "bounds": “([-2639580, -2635580], [-4137200,-4142200])"
+},
+{
+   "type":"writers.gdal",
+   "gdalopts":"t_srs=EPSG:3577",
+   “resolution":20,
+   “filename”:"diamantina-dsm.tiff",
+   "output_type":"idw"
+}
+]
+}</span></pre>
+                    </section>
+                    <section data-background="./images/mh370-contours.jpg">
+                    <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                    <p style="font-size: 0.4em; color: #444444">Seafloor DEM in QGIS2threeJS made from an Entwine index using PDAL</p>
+                    </div>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Making landscape-scales easy</h2>
+                    </section>
+                    <section data-background-iframe="http://www.spatialised.net/pointclouds/data/act-2015.html">
+                    <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                    <p style="font-size: 0.4em; color: #eeeeee">The Australian Capital Territory. 1600 square kilometres, 29.4 billion points. Interact with me!</p>
+                    </div>
+                    </section>
+                    <section>
+                    A building clipping example
+                    </section>
+
+                    <section data-background-iframe="http://spatialised.net/pointclouds/data/lower-mdb.html">
+                    <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                    <p style="font-size: 0.4em; color: #eeeeee">The lower Murray Darling Basin. 8000 square kilometres, 30.7 billion points. Interact with me!</p>
+                    </div>
+                    </section>
+
+
+                    <section>
+                    Treeness plots
+                    </section>
+                    <section>
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">{
+"pipeline": [
+{
+  "type":"readers.ept",
+  "filename":"http://lower-mdb-2013-rgb.s3.amazonaws.com/",
+  "bounds":"([566655, 567655], [6254307,6255307])"
+},
+{
+    "type":"filters.python",
+    "script":"treepercentage.py",
+    "function":"treepercentage",
+    "module":"anything",
+    "pdalargs":"{\"cellsize\":10,
+                 \"spatialreference\":\"EPSG:28354\",
+                 \"outputfile\":\"treeness-new.tiff\"}"
+},
+{
+    "type":"filters.range",
+    "limits":"Classification[2:2]"
+},
+{
+    "type":"writers.gdal",
+    "gdalopts":"t_srs=EPSG:28355",
+    "resolution":10,
+    "filename":"trees-dem.tiff",
+    "output_type":"idw"
+}
+]
+}</span></pre>
+                </section>
+                <section data-background="./images/treeness.jpg">
+                <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                <p style="font-size: 0.4em; color: #444444">Treeness in the lower Murray Darling basin</p>
+                </div>
+                </section>
+
+                </section>
+                <section>
+                    <section><h2>Scale mixing and tiny airplanes</h2></section>
+
+                    <section data-background="./images/TLS-georef.png">
+                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                        <p style="font-size: 0.4em; color: #eeeeee">1.12 billion TLS points georeferenced using PDAL and a coincident ALS survey</p>
+                        </div>
+                        <aside class="notes">
+                        Use case - PDAL for georeferencing a billion-point building scan using points picked from a 30ppm coincident ALS collection
+                        </aside>
+                    </section>
+                    <section data-background="./images/anafi.jpg">
+                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                        <p style="font-size: 0.4em; color: #eeeeee">A very tiny airplane</p>
+                        </div>
+                        <aside class="notes">
+                        A very small airplane, a very powerful instrument!
+                        </aside>
+                    </section>
+                    <section data-background="./images/rpa-flight.png">
+                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                        <p style="font-size: 0.4em; color: #eeeeee">Flying very close to rocks</p>
+                        </div>
+                        <aside class="notes">
+                        Flight path next to a cliff, for a modelling and inspection PoC
+                        </aside>
+                    </section>
+                    <section data-background-iframe="http://www.spatialised.net/pointclouds/data/windwall.html">
+                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                        <p style="font-size: 0.4em; color: #eeeeee">Mt Coree's wind wall. 125.9 million points, 264 square metres. Interact with me!</p>
+                        </div>
+                        <aside class="notes">
+                        Very high resolution model of a cliff face for asset inspection
+                        </aside>
+                    </section>
+                    <section data-background-iframe="http://spatialised.net/pointclouds/data/act-merge.html">
+                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                        <p style="font-size: 0.4em; color: #eeeeee">Filling in gaps. Interact with me!</p>
+                        </div>
+                        <aside class="notes">
+                        Very high resolution model of a cliff face for asset inspection
+                        </aside>
+                    </section>
+                    <section data-background="./images/change-detection.jpg">
+                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                        <p style="font-size: 0.4em; color: #eeeeee">Practical application - data alignment and change detection</p>
+                        </div>
+                        <aside class="notes">
+                        Using data collected by a tiny RPA, and very large LiDAR collection, for change detection.
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Open by default</h2>
+                    </section>
+                    <section>
+                        Based on the work of passionate individuals
+                    </section>
+                    <section>
+                        Supported by a global organisation of volunteers
+                    </section>
+                    <section>
+                        ...which works as long as we contribute.
+                    </section>
+                    <section>
+                        We <b>don't</b> need to code to help! We can support people who <b>do.</b>
+                    </section>
+                    <section>
+                        OSGeo Oceania logo
+                    </section>
+                </section>
+                <section>
+                    <h2>Long reads</h2>
+                    <p>
+                    http://www.spatialised.net/category/pdal/<br />
+                    tweet: @adamsteer
+                    </p>
+                </section>
+                <section>
+                    <h2>Thankyou!</h2>
+                </section>
+
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
