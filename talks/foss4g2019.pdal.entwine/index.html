@@ -142,6 +142,34 @@
                         </aside>
                     </section>
                     <section>
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">def xyzdensity(inputfile):
+"""
+.xyz files (ascii point clouds or grids)
+"""
+
+pointcoverage = getpointcoverage.getpointcoverage(inputfile)
+pointcoverage = shape(json.loads(pointcoverage))
+
+# get the area of the coverage. first convert from WGS84 to utm
+projstring = geotransforms.guessutm(pointcoverage)
+
+utmcoverage = geotransforms.latlontoutm(pointcoverage, projstring)
+
+covered = utmcoverage.area
+
+npoints = mapcount(inputfile)
+
+meandensity = covered/npoints
+
+return json.dumps({
+    'meandensity': meandensity,
+    'area': covered,
+    'npoints': npoints
+})</span></pre>
+                        <aside class="notes">
+                            notes
+                        </aside>
+                    <section>
                     <p style="font-size: 0.8em"><a href="https://github/frontiersi/qa4mbes-data-pipeline/blob/master/notebooks/">https://github/frontiersi/qa4mbes-data-pipeline/blob/master/notebooks/</a>
                     </section>
                 <section data-background="./images/mh370map.png">
@@ -254,7 +282,7 @@ done</span></pre>
                 <section>
 
                     <section>
-                        <h2>Making landscape-scales easy</h2>
+                    <h2>Making landscape-scales easy</h2>
                     </section>
                     <section data-background-iframe="https://www.spatialised.net/pointclouds/data/act-2015.html">
                     <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
@@ -361,25 +389,9 @@ done</span></pre>
                         A very small airplane, a very powerful instrument!
                         </aside>
                     </section>
-                    <section data-background="./images/rpa-flight.png">
-                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
-                        <p style="font-size: 0.4em; color: #eeeeee">Flying very close to rocks</p>
-                        </div>
-                        <aside class="notes">
-                        Flight path next to a cliff, for a modelling and inspection PoC
-                        </aside>
-                    </section>
                     <section data-background-iframe="https://www.spatialised.net/pointclouds/data/windwall.html">
                         <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
                         <p style="font-size: 0.4em; color: #eeeeee">Mt Coree's wind wall. 125.9 million points, 264 square metres. Interact with me!</p>
-                        </div>
-                        <aside class="notes">
-                        Very high resolution model of a cliff face for asset inspection
-                        </aside>
-                    </section>
-                    <section data-background-iframe="https://spatialised.net/pointclouds/data/act-merge.html">
-                        <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
-                        <p style="font-size: 0.4em; color: #eeeeee">Filling in gaps. Interact with me!</p>
                         </div>
                         <aside class="notes">
                         Very high resolution model of a cliff face for asset inspection
