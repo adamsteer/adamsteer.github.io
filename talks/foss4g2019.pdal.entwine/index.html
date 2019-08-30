@@ -243,7 +243,9 @@ done</span></pre>
                     </div>
                     </section>
                 </section>
+
                 <section>
+
                     <section>
                         <h2>Making landscape-scales easy</h2>
                     </section>
@@ -253,15 +255,43 @@ done</span></pre>
                     </div>
                     </section>
                     <section>
-                    A building clipping example
+                    Clipping buildings
                     </section>
+
+                    <section>
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">{
+  "pipeline": [
+    {
+        "type": "readers.ept",
+        "filename": "http://act-2015-rgb.s3.amazonaws.com/“,
+        "bounds": "([692738, 692967], [6092255,6092562])"
+    },
+    {
+        “type”:”filters.hag"
+    },
+    {
+        "type": "filters.ferry",
+        "dimensions": "HeightAboveGround=>Z"
+    },
+    {
+        “type”:”filters.crop”,
+        "polygon" : "POLYGON((692809.631984224 6092391.60313353,...,692809.631984224 6092391.60313353))"
+    },
+    "cropped-data-from-entwine.laz"
+  ]
+}</span></pre>
+                </section>
+                <section data-background="./images/nma-clipped.jpg">
+                <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
+                <p style="font-size: 0.4em; color: #444444">Treeness in the lower Murray Darling basin</p>
+                </div>
+                </section>
 
                     <section data-background-iframe="https://spatialised.net/pointclouds/data/lower-mdb.html">
                     <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
                     <p style="font-size: 0.4em; color: #eeeeee">The lower Murray Darling Basin. 8000 square kilometres, 30.7 billion points. Interact with me!</p>
                     </div>
                     </section>
-
 
                     <section>
                     Treeness plots
