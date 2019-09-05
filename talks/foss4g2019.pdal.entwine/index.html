@@ -56,19 +56,19 @@
                         <p class="fragment" style="font-size: 0.6em">Field scientist turned data wrangler</p>
 
                         <aside class="notes">
-                        Which hats do I wear, in the world and in this community?
+                        Introducing myself. Freelance consultant, community builder
                         </aside>
                     </section>
 
                     <section data-background="./images/helo_model-2.png">
                         <aside class="notes">
-                        My background is in geomatics - using helicopter borne lidar and imagery
+                        My background is in geomatics - using helicopter-borne lidar and imagery
                         </aside>
                     </section>
 
                     <section data-background="./images/icy-areas.jpg">
                         <aside class="notes">
-                        To do fundamental earth systems research on this stuff
+                        To do fundamental earth systems research on sea ice...
                         </aside>
                     </section>
 
@@ -77,7 +77,7 @@
                         <p style="font-size: 0.4em; color: #eeeeee">Sea ice elevation and draft modelled with photogrammetry and upward looking sonar. Interact with me!</p>
                         </div>
                         <aside class="notes">
-                        ...focussing on sea ice elevation and then thickness.
+                        ...focussing on sea ice elevation and then thickness, merging lidar, imagery and upward looking sonar with field observations.
                         </aside>
                     </section>
 
@@ -99,6 +99,9 @@
                         <p class="fragment">Processing</p>
                     </section>
                     <section data-background="./images/flatwhites.jpg" data-background-height="90%">
+                    <aside class="notes">
+                    This slide shows a data visualisation 'in the wild' - one sided pattern is a single shot, the other is a double shot. More on visualisation will come!
+                    </aside>
                     </section>
                 </section>
 
@@ -108,14 +111,17 @@
                 <p style="font-size: 0.6em">
                 https://adamsteer.github.io/talks/foss4g2019.pdal.entwine/</p>
                 <p style="font-size: 0.6em">
-                ...play with the interactive bits if you like!</p>
+                ...play with the interactive bits if you like! (unfortunately, the webGL used will not work in the Safari web browser)</p>
                 </section>
                 <section>
                     <section>
                         <h2>PDAL and Entwine in Hydrography</h2>
+                        <aside class="notes">
+                        Lets start - in hydrography! What do we use PDAL for there?
+                        </aside>
                     </section>
                     <section>
-                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">def xyzcoverage(inputfile):
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.7em">def xyzcoverage(inputfile):
     """
     Provide a file name with extension:
     - xyz
@@ -137,9 +143,9 @@
         ]
     }
 </span></pre>
-                        <aside class="notes">
-                            notes
-                        </aside>
+                    <aside class="notes">
+                    This is a short PDAL pipeline driven by a Python function. It extracts a multiplpolygon boundary from a list of lat/lon/depth coordinates in an ASCII file.
+                    </aside>
                     </section>
                     <section>
                     <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">def xyzdensity(inputfile):
@@ -166,14 +172,22 @@ return json.dumps({
     'area': covered,
     'npoints': npoints
 })</span></pre>
-                        <aside class="notes">
-                            notes
-                        </aside>
+                    <aside class="notes">
+                    ...and this is the function that drives it. I bet you were expecting some mind blowing visualisations, or something. What we're doing here is asking PDAL to handle myriad data formats for us as part of a QA/QC tool for hydographic surveying! It's a convenience application that just slots in and is useful straight away.
+                    </aside>
                     </section>
                     <section>
                     <p style="font-size: 0.8em"><a href="https://github/frontiersi/qa4mbes-data-pipeline/blob/master/notebooks/">https://github/frontiersi/qa4mbes-data-pipeline/blob/master/notebooks/</a>
+                    <aside class="notes">
+                    Notebooks demonstrating these hydrographic QA tools are here - go and play with them!
+                    </aside>
                     </section>
                 <section data-background="./images/mh370map.png">
+                <aside class="notes">
+                Still beneath the sea, we can use PDAL's capability to create useful data visualisations. The yellow/orange parts in this map represent mean depths from 'blocks' of data obtained in the search for Malaysian airlines MH370.
+
+                It covers 700 000 square kilometres of ocean floor, with over 4 billion datapoints.
+                </aside>
                 </section>
                 <section>
                     <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">{
@@ -220,6 +234,9 @@ return json.dumps({
     }
   ]
 }</span></pre>
+                    <aside class="notes">
+                    ...and here's how PDAL was used to visualise it all in a 2D QGIS map! This is another PDAL pipeline where we read in ASCII data, reproject it, add some new attributes to each point, run a noise filter, invert the Z axis, add a blue colour scale, and write out a much more compact compressed LAZ file.
+                    </aside>
                     </section>
                     <section>
                     <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">#!/bin/bash
@@ -247,6 +264,9 @@ for filename in $path/*.laz; do
     values ('$thefile', ST_GeomFromText('$bounds'), $pointcount, $thedepth);"
 
 done</span></pre>
+                    <aside class="notes">
+                    Using those LAZ files, we call on PDAL again to extract metadata from the files and extract boundaries. Finally we get postGIS to join in and make a database of geometries.
+                    </aside>
                     </section>
 
                     <section>
@@ -257,20 +277,27 @@ done</span></pre>
                         <p class="fragment" style="font-size: 0.6em">Collect boundaries and postGIS-ify</p>
                         <p class="fragment" style="font-size: 0.6em">Entwine-ify</p>
                         <p class="fragment" style="font-size: 0.6em">Do stuff...</p>
+                        <aside class="notes">
+                        The basic workflow. Get data, grind it with PDAL, grind it some more with PDAL, convert to Entwine, do stuff...
 
+                        ...but wait, we haven't entwined yet!
+                        </aside>
                     </section>
                     <section data-background="./images/mh370map.png">
+                        <aside class="notes">
+                        Let's just see this cool map one more time. Made possible by PDAL! Or.. made a whole lot easier by PDAL.
+                        </aside>
                     </section>
-
-
-
                     <section data-background-iframe="https://spatialised.net/pointclouds/data/mh370.html">
                     <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
                     <p style="font-size: 0.4em; color: #eeeeee">Indian ocean sea floor data collected during MH370 search phase 1 and 2. Interact with me!</p>
                     </div>
+                    <aside class="notes">
+                    Here is our Entwine index - we can now visualise this in 3D, in a web browser (Thanks Markus Schutz for Potree), explore it, measure stuff, look for issues.
+                    </aside>
                     </section>
                     <section>
-                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.6em">{
+                    <pre style="line-height: .5em;"><span class="inner-pre" style="font-size: 0.7em">{
 "pipeline": [
 {
    "type": "readers.ept",
@@ -286,16 +313,23 @@ done</span></pre>
 }
 ]
 }</span></pre>
+                    <aside class="notes">
+                    Now, lets visualise data a different way. This short pipeline reads our Entwine dataset (the one we just saw), and generates a geotiff format DSM.
+                    </aside>
                     </section>
                     <section data-background="./images/mh370-contours.jpg">
                     <div style="position: fixed;  bottom: 0px; left: 10px; text-align:bottom">
                     <p style="font-size: 0.4em; color: #444444">Seafloor DEM in QGIS2threeJS made from an Entwine index using PDAL</p>
                     </div>
+                    <aside class="notes">
+                    ...which can be mapped/analysed/rendered in other software, for example QGIS.
+
+                    Compare this with the multiple steps used to make the map - the workflow is one step: Clip region of interest, then produce a DSM!
+                    </aside>
                     </section>
                 </section>
 
                 <section>
-
                     <section>
                     <h2>Making landscape-scales easy</h2>
                     </section>
